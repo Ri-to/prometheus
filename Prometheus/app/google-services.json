@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "831279143699",
+    "firebase_url": "https://promethuesartgallery.firebaseio.com",
+    "project_id": "promethuesartgallery",
+    "storage_bucket": "promethuesartgallery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831279143699:android:39b559eb8ba363e3",
+        "android_client_info": {
+          "package_name": "com.prometheus.gallery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831279143699-ggbemi6bqtmvja63ctoshp0ng0211gfc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.prometheus.gallery",
+            "certificate_hash": "dc5e7cac29145254612ebd0b284d1d22db4fcc99"
+          }
+        },
+        {
+          "client_id": "831279143699-27fv1j9au72k7loim201p90gre685jqk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAevrOGaScQI6OAgymxP7BLTBlyP4Mqhek"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831279143699-27fv1j9au72k7loim201p90gre685jqk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
