@@ -2,6 +2,7 @@
     <string name="app_name">Prometheus</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
+
     <string name="title_notifications">Notifications</string>
 
     <string name="prometheus_">
@@ -12,4 +13,8 @@
 
         First Name
     </string>
+
+    <string name="title_setting">Setting</string>
+    <string name="title_events">Events</string>
+
 </resources>
