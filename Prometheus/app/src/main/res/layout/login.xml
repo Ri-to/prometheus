@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/body"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:id="@+id/background_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:paddingTop="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text=""
+                android:textColor="#FFFFFF"
+                app:fontFamily="Francois One"
+                android:textAppearance="@style/prometheus_" />
+
+            <TextView
+                android:id="@+id/prometheus_"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:paddingTop="130dp"
+                android:text="Your\nArt\nYour\nDream"
+                android:textColor="#FFFFFF"
+                app:fontFamily="Francois One"
+                android:textAppearance="@style/prometheus_" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text=""
+                android:textColor="#FFFFFF"
+                app:fontFamily="Francois One"
+                android:textAppearance="@style/prometheus_" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingTop="50dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/email"
+                android:hint="Email Address"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:textColor="#000000"
+                android:textColorHint="#969696"
+                android:background="@drawable/edittextshape"/>
+            <EditText
+                android:id="@+id/pw"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:textColor="#000000"
+                android:textColorHint="#969696"
+                android:background="@drawable/edittextshape"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+
+                <Button
+                    android:id="@+id/btn_login"
+                    android:text="Login"
+                    android:textColor="#FFFFFF"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/buttonshape"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <TextView
+                    android:id="@+id/btn_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_login"
+                    android:layout_centerHorizontal="true"
+                    android:text="Dont have an account?"
+                    android:textSize="15dp"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>
