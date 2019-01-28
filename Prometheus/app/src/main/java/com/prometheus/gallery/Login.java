@@ -36,8 +36,10 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        Picasso.with(getApplicationContext())
+        Picasso.get()
                 .load(R.drawable.background_register)
+                .resize(1440,2560 )
+                .onlyScaleDown()
                 .into((ImageView) findViewById(R.id.background_register));
 
         email = findViewById(R.id.email);

@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,82 +24,83 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8"
-            android:paddingTop="50dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="50dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:text=""
+                android:textAppearance="@style/prometheus_"
                 android:textColor="#FFFFFF"
-                app:fontFamily="Francois One"
-                android:textAppearance="@style/prometheus_" />
+                app:fontFamily="Francois One" />
 
             <TextView
                 android:id="@+id/prometheus_"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:paddingTop="130dp"
+                android:gravity="center_vertical"
                 android:text="Your\nArt\nYour\nDream"
+                android:textAppearance="@style/prometheus_"
                 android:textColor="#FFFFFF"
-                app:fontFamily="Francois One"
-                android:textAppearance="@style/prometheus_" />
+                app:fontFamily="Francois One" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:text=""
+                android:textAppearance="@style/prometheus_"
                 android:textColor="#FFFFFF"
-                app:fontFamily="Francois One"
-                android:textAppearance="@style/prometheus_" />
+                app:fontFamily="Francois One" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6"
+            android:layout_weight="8"
+            android:orientation="vertical"
             android:paddingLeft="50dp"
-            android:paddingRight="50dp"
             android:paddingTop="50dp"
-            android:orientation="vertical">
+            android:paddingRight="50dp">
 
             <EditText
                 android:id="@+id/email"
-                android:hint="Email Address"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/edittextshape"
+                android:hint="Email Address"
                 android:textColor="#000000"
-                android:textColorHint="#969696"
-                android:background="@drawable/edittextshape"/>
+                android:textColorHint="#969696" />
+
             <EditText
                 android:id="@+id/pw"
-                android:hint="Password"
-                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/edittextshape"
+                android:hint="Password"
+                android:inputType="textPassword"
                 android:textColor="#000000"
-                android:textColorHint="#969696"
-                android:background="@drawable/edittextshape"/>
+                android:textColorHint="#969696" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_height="100dp">
 
                 <Button
                     android:id="@+id/btn_login"
-                    android:text="Login"
-                    android:textColor="#FFFFFF"
                     android:layout_width="130dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/buttonshape"
+                    android:layout_margin="10dp"
                     android:layout_centerHorizontal="true"
-                    />
+                    android:background="@drawable/buttonshape"
+                    android:text="Login"
+                    android:textColor="#FFFFFF" />
 
                 <TextView
                     android:id="@+id/btn_register"
@@ -107,7 +109,7 @@
                     android:layout_below="@id/btn_login"
                     android:layout_centerHorizontal="true"
                     android:text="Dont have an account?"
-                    android:textSize="15dp"/>
+                    android:textSize="15dp" />
 
             </RelativeLayout>
 

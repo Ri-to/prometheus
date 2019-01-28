@@ -55,8 +55,10 @@ public class Register extends AppCompatActivity {
 //                .transform(new BlurTransformation(getApplicationContext()))
 //                .into((ImageView) findViewById(R.id.background_register));  //for photo blur
 
-        Picasso.with(getApplicationContext())
+        Picasso.get()
                 .load(R.drawable.background_register)
+                .resize(1440,2560 )
+                .onlyScaleDown()
                 .into((ImageView) findViewById(R.id.background_register));
 
 
