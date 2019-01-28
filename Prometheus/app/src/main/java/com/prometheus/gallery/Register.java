@@ -1,5 +1,6 @@
 package com.prometheus.gallery;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -43,6 +44,14 @@ public class Register extends AppCompatActivity {
     private Button btn_register;
     private TextView btn_login;
     private User user;
+
+    private ProgressDialog progressDialog;
+
+    public void DismissDialog(){
+        if(progressDialog != null && progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,6 +114,13 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
+                if(progressDialog == null){
+                    progressDialog = new ProgressDialog(Register.this);
+                    progressDialog.setCancelable(true);
+                    progressDialog.setMessage("Loading...");
+                    progressDialog.show();
+                }
+
                 user = new User();
                 user.setId(UUID.randomUUID().toString());
                 Log.e("userid",user.getId()+"");
@@ -131,6 +147,7 @@ public class Register extends AppCompatActivity {
 
                 Toast.makeText(Register.this, "Registration Successful.", Toast.LENGTH_SHORT).show();
 
+                DismissDialog();
 
                 Intent intent = new Intent(Register.this, Login.class);
 //                MyApplication globlevariable = (MyApplication) getApplicationContext();
@@ -198,7 +215,7 @@ public class Register extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                DismissDialog();
             }
 
         });

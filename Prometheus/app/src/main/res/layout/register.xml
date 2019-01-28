@@ -48,7 +48,9 @@
                 android:layout_margin="5dp"
                 android:textColor="#000000"
                 android:textColorHint="#969696"
-                android:background="@drawable/edittextshape"/>
+                android:background="@drawable/edittextshape"
+                android:maxLines="1"
+                android:scrollHorizontally="true"/>
             <EditText
                 android:id="@+id/lname"
                 android:hint="Last Name"
@@ -57,7 +59,9 @@
                 android:layout_margin="5dp"
                 android:textColor="#000000"
                 android:textColorHint="#969696"
-                android:background="@drawable/edittextshape"/>
+                android:background="@drawable/edittextshape"
+                android:maxLines="1"
+                android:scrollHorizontally="true"/>
             <EditText
                 android:id="@+id/phno"
                 android:hint="Phone Number"
@@ -66,7 +70,10 @@
                 android:layout_margin="5dp"
                 android:textColor="#000000"
                 android:textColorHint="#969696"
-                android:background="@drawable/edittextshape"/>
+                android:background="@drawable/edittextshape"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:inputType="number"/>
             <EditText
                 android:id="@+id/email"
                 android:hint="Email Address"
@@ -75,7 +82,9 @@
                 android:layout_margin="5dp"
                 android:textColor="#000000"
                 android:textColorHint="#969696"
-                android:background="@drawable/edittextshape"/>
+                android:background="@drawable/edittextshape"
+                android:maxLines="1"
+                android:scrollHorizontally="true"/>
             <EditText
                 android:id="@+id/pw"
                 android:hint="Password"
@@ -85,7 +94,9 @@
                 android:layout_margin="5dp"
                 android:textColor="#000000"
                 android:textColorHint="#969696"
-                android:background="@drawable/edittextshape"/>
+                android:background="@drawable/edittextshape"
+                android:maxLines="1"
+                android:scrollHorizontally="true"/>
             <EditText
                 android:id="@+id/conpw"
                 android:hint="Confirm Password"
@@ -95,7 +106,9 @@
                 android:layout_margin="5dp"
                 android:textColor="#000000"
                 android:textColorHint="#969696"
-                android:background="@drawable/edittextshape"/>
+                android:background="@drawable/edittextshape"
+                android:maxLines="1"
+                android:scrollHorizontally="true"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

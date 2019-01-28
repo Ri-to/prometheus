@@ -75,7 +75,10 @@
                 android:background="@drawable/edittextshape"
                 android:hint="Email Address"
                 android:textColor="#000000"
-                android:textColorHint="#969696" />
+                android:textColorHint="#969696"
+                android:maxLines="1"
+                android:inputType="textEmailAddress"
+                android:scrollHorizontally="true"/>
 
             <EditText
                 android:id="@+id/pw"
@@ -86,7 +89,9 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:textColor="#000000"
-                android:textColorHint="#969696" />
+                android:textColorHint="#969696"
+                android:maxLines="1"
+                android:scrollHorizontally="true"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.prometheus.gallery;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,6 +30,14 @@ public class Login extends AppCompatActivity {
     private EditText pw;
     private Button btn_login;
     private TextView btn_register;
+
+    private ProgressDialog progressDialog;
+
+    public void DismissDialog(){
+        if(progressDialog != null && progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +85,14 @@ public class Login extends AppCompatActivity {
 
     //match the login
     public void MatchLoginDB(final String email, final String pw) {
+
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(Login.this);
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+        }
+
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User");
         Query query = databaseReference.orderByChild("email").equalTo(email);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -84,6 +101,7 @@ public class Login extends AppCompatActivity {
 
                 if(!dataSnapshot.exists()){
                     Toast.makeText(Login.this, "Email Incorrect!", Toast.LENGTH_SHORT).show();
+                    DismissDialog();
                     return;
                 }
 
@@ -92,12 +110,19 @@ public class Login extends AppCompatActivity {
 
                         if(pw.equals(dbpw)){
 //                            Toast.makeText(Login.this, "Login Successful.", Toast.LENGTH_SHORT).show();
-                            MyApplication globalvariable = (MyApplication) getApplicationContext();
-                            globalvariable.setLoginstate(true);
-                            globalvariable.setId(ds.child("id").getValue()+"");
-                            Toast.makeText(Login.this, globalvariable.getId(), Toast.LENGTH_SHORT).show();
+
+//                            ((MyApplication)getApplication()).setLoginstate(true);
+                            ((MyApplication)getApplication()).setId(ds.child("id").getValue()+"");
+
+                            Toast.makeText(Login.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+
+                            DismissDialog();
+
+                            Intent intent = new Intent(Login.this, Post.class);
+                            startActivity(intent);
                         }
                         else{
+                            DismissDialog();
                             Toast.makeText(Login.this, "Password Incorrect!", Toast.LENGTH_SHORT).show();
                         }
 
@@ -108,6 +133,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e("DatabaseError", databaseError.getMessage());
+                DismissDialog();
             }
 
         });
