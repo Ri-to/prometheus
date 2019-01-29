@@ -566,7 +566,7 @@ public class Post extends AppCompatActivity {
                 }
                 else{
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                    databaseReference.child("Post").child("0").setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    databaseReference.child("Post").child("1").setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.e("DB_Commit", "Success!");

@@ -116,12 +116,7 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
-                if(progressDialog == null){
-                    progressDialog = new ProgressDialog(Register.this);
-                    progressDialog.setCancelable(true);
-                    progressDialog.setMessage("Loading...");
-                    progressDialog.show();
-                }
+
 
                 user = new User();
                 user.setId(UUID.randomUUID().toString());
@@ -139,7 +134,7 @@ public class Register extends AppCompatActivity {
 
                 String now = f.format(new Date(System.currentTimeMillis() + 3600000 * 6 + 1800000));
 
-                Toast.makeText(Register.this, now, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Register.this, now, Toast.LENGTH_SHORT).show();
 
                 user.setCreatedDate(now);
                 user.setModifiedDate(now);
@@ -170,6 +165,13 @@ public class Register extends AppCompatActivity {
     }
 
     public void InsertUpdateDB(final User UserObj , final boolean update) {
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(Register.this);
+//                    progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+        }
+
 
         final  User userobj = UserObj;
 
@@ -215,7 +217,7 @@ public class Register extends AppCompatActivity {
                 }
                 else{
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                    databaseReference.child("User").child("0").setValue(userobj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    databaseReference.child("User").child("1").setValue(userobj).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.e("DB_Commit", "Success!");
