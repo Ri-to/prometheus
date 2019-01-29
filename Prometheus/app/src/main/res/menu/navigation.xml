@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <item
         android:id="@+id/navigation_home"
@@ -7,9 +9,9 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_category"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:title="@string/title_category" />
 
     <item
         android:id="@+id/navigation_event"
@@ -17,7 +19,7 @@
         android:title="@string/title_events"/>
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_setting"
         android:icon="@drawable/ic_settings_black_24dp"
         android:title="@string/title_setting" />
 
