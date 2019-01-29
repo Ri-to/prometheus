@@ -24,12 +24,22 @@ public class arts extends MainActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentLayout(R.layout.arts_cartegory);
-        ImageView img=(ImageView)findViewById(R.id.img2);
+        ImageView img=(ImageView)findViewById(R.id.img1);
         final ImageView img1=(ImageView)findViewById(R.id.img1);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent h = new Intent(arts.this, sub_art1.class);
+                startActivity(h);
+                overridePendingTransition(0, 0);
+
+            }
+        });
+        ImageView img2=(ImageView)findViewById(R.id.img2);
+        img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent h = new Intent(arts.this, sub_art2.class);
                 startActivity(h);
                 overridePendingTransition(0, 0);
 
