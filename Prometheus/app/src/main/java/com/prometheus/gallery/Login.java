@@ -60,6 +60,8 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                view.startAnimation(((MyApplication)getApplication()).buttonClick);
+
                 if(email.getText().toString().trim().equals("")){
                     email.setError(email.getHint()+" is required.");
                     return;
@@ -113,6 +115,7 @@ public class Login extends AppCompatActivity {
 
 //                            ((MyApplication)getApplication()).setLoginstate(true);
                             ((MyApplication)getApplication()).setId(ds.child("id").getValue()+"");
+                            ((MyApplication)getApplication()).setUserType(ds.child("userType").getValue()+"");
 
                             Toast.makeText(Login.this, "Login Successful.", Toast.LENGTH_SHORT).show();
 

@@ -84,6 +84,8 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                view.startAnimation(((MyApplication)getApplication()).buttonClick);
+
                 if(fname.getText().toString().trim().equals("")){
                     fname.setError(fname.getHint()+" is required.");
                     return;
@@ -141,7 +143,7 @@ public class Register extends AppCompatActivity {
 
                 user.setCreatedDate(now);
                 user.setModifiedDate(now);
-                user.setTypeid("71dd0243-9125-48c3-aa63-9660bbbb4829");
+                user.setUserType("NormalUser");
 
                 InsertUpdateDB(user,false);
 
@@ -176,27 +178,44 @@ public class Register extends AppCompatActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    int key = 0;
+                        int key = 0;
 //                    String obj_key = "";
 //                    String new_key = "";
 
-                    key = Integer.parseInt(ds.getKey());
+                        key = Integer.parseInt(ds.getKey());
 
-                    if(!update){
+                        if(!update){
 //                        obj_key = ds.child("id").getValue() + "";
 //                        new_key = Util.AutoID(obj_key);
-                        key = key+1;
+                            key = key+1;
 //                        townshipObj.setId(new_key);
+                        }
+
+
+
+
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                        databaseReference.child("User").child((key) + "").setValue(userobj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.e("DB_Commit", "Success!");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e("DB_Commit", "Fail!");
+                            }
+                        });
+
+
                     }
-
-
-
-
+                }
+                else{
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                    databaseReference.child("User").child((key) + "").setValue(userobj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    databaseReference.child("User").child("0").setValue(userobj).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.e("DB_Commit", "Success!");
@@ -207,8 +226,6 @@ public class Register extends AppCompatActivity {
                             Log.e("DB_Commit", "Fail!");
                         }
                     });
-
-
                 }
 
             }

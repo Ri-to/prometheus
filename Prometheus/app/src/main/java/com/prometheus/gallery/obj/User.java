@@ -22,7 +22,7 @@ public class User implements Serializable {
 
     private String modifiedDate = "";
 
-    private String typeid = "";
+    private String userType = "";
 
     public String getId() {
         return id;
@@ -96,12 +96,12 @@ public class User implements Serializable {
         this.modifiedDate = modifiedDate;
     }
 
-    public String getTypeid() {
-        return typeid;
+    public String getUserType() {
+        return userType;
     }
 
-    public void setTypeid(String typeid) {
-        this.typeid = typeid;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     @Override
@@ -116,7 +116,7 @@ public class User implements Serializable {
                 ", pw='" + pw + '\'' +
                 ", createdDate='" + createdDate + '\'' +
                 ", modifiedDate='" + modifiedDate + '\'' +
-                ", typeid='" + typeid + '\'' +
+                ", userType='" + userType + '\'' +
                 '}';
     }
 }

@@ -37,5 +37,6 @@ dependencies {
     implementation 'jp.wasabeef:picasso-transformations:2.2.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation 'com.google.firebase:firebase-storage:16.0.1'
+    implementation "com.google.firebase:firebase-auth:9.0.2"
 }
 apply plugin: 'com.google.gms.google-services'
