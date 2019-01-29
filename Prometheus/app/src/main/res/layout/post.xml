@@ -165,7 +165,7 @@
                         android:gravity="center"
                         android:text="Frame include :"
                         android:textSize="18sp"
-                        android:textColor="#969696"/>
+                        android:textColor="#FFFFFF"/>
 
                     <RadioGroup
                         android:layout_width="0dp"
@@ -179,9 +179,9 @@
                             android:layout_height="match_parent"
                             android:layout_weight="4"
                             android:text="No"
-                            android:textColor="#969696"
+                            android:textColor="#FFFFFF"
                             android:checked="true"
-                            app:buttonTint="#969696"
+                            app:buttonTint="#FFFFFF"
                             android:onClick="onRadioButtonClicked"/>
 
                         <RadioButton
@@ -190,8 +190,8 @@
                             android:layout_height="match_parent"
                             android:layout_weight="4"
                             android:text="Yes"
-                            android:textColor="#969696"
-                            app:buttonTint="#969696"
+                            android:textColor="#FFFFFF"
+                            app:buttonTint="#FFFFFF"
                             android:onClick="onRadioButtonClicked"/>
 
                     </RadioGroup>
