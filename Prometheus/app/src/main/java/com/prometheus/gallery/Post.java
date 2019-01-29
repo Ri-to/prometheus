@@ -17,6 +17,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,6 +45,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.prometheus.gallery.obj.PostObj;
+import com.squareup.picasso.Picasso;
 
 
 import java.io.ByteArrayOutputStream;
@@ -80,6 +82,8 @@ public class Post extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
 
+//    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
+
     private class NumericKeyBoardTransformationMethod extends PasswordTransformationMethod {
         @Override
         public CharSequence getTransformation(CharSequence source, View view) {
@@ -94,6 +98,12 @@ public class Post extends AppCompatActivity {
 //        setTheme(R.style.NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post);
+
+        Picasso.get()
+                .load(R.drawable.background_register)
+                .resize(1440,2560 )
+                .onlyScaleDown()
+                .into((ImageView) findViewById(R.id.background_register));
 
         getimgbtn = findViewById(R.id.getimgbtn);
         img = findViewById(R.id.img);
@@ -308,6 +318,7 @@ public class Post extends AppCompatActivity {
         getimgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(((MyApplication)getApplication()).buttonClick);
                 Intent i = new Intent(
                         Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -320,6 +331,7 @@ public class Post extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                v.startAnimation(((MyApplication)getApplication()).buttonClick);
 
                 if(title.getText().toString().trim().equals("")){
                     title.setError(title.getHint()+" is required.");
@@ -364,7 +376,7 @@ public class Post extends AppCompatActivity {
         if(filepath != null)
         {
             final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
+            progressDialog.setTitle("Posting...");
             progressDialog.show();
 
             final StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
@@ -372,25 +384,25 @@ public class Post extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
+//                            progressDialog.dismiss();
                             Toast.makeText(Post.this, "Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
+//                            progressDialog.dismiss();
                             Toast.makeText(Post.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                        }
                     });
+//                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+//                                    .getTotalByteCount());
+//                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+//                        }
+//                    });
 
 
             UploadTask uploadTask = ref.putFile(filepath);
@@ -436,11 +448,18 @@ public class Post extends AppCompatActivity {
 
                         InsertUpdateDB(postobj,false);
 
+                        progressDialog.dismiss();
+
+                        Intent intent = new Intent(Post.this, Detail.class);
+                        intent.putExtra("postid", postobj.getId());
+                        startActivity(intent);
+
 
                     } else {
                         // Handle failures
                         // ...
                         Toast.makeText(Post.this, "Fail to download image url", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 }
             });
@@ -510,26 +529,44 @@ public class Post extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    int key = 0;
+                        int key = 0;
 //                    String obj_key = "";
 //                    String new_key = "";
 
-                    key = Integer.parseInt(ds.getKey());
+                        key = Integer.parseInt(ds.getKey());
 
-                    if(!update){
+                        if(!update){
 //                        obj_key = ds.child("id").getValue() + "";
 //                        new_key = Util.AutoID(obj_key);
-                        key = key + 1;
+                            key = key + 1;
 //                        townshipObj.setId(new_key);
+                        }
+
+
+
+
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                        databaseReference.child("Post").child((key) + "").setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.e("DB_Commit", "Success!");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e("DB_Commit", "Fail!");
+                            }
+                        });
+
+
                     }
-
-
-
-
+                }
+                else{
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                    databaseReference.child("Post").child((key) + "").setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    databaseReference.child("Post").child("0").setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.e("DB_Commit", "Success!");
@@ -540,8 +577,6 @@ public class Post extends AppCompatActivity {
                             Log.e("DB_Commit", "Fail!");
                         }
                     });
-
-
                 }
 
             }
