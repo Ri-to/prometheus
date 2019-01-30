@@ -36,13 +36,16 @@ public class Detail extends AppCompatActivity {
     private TextView price;
     private TextView description;
 
+    private String postid;
+    private String userid;
+
     private DatabaseReference mDatabase;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        protected void onCreate(@Nullable Bundle savedInstanceState) {
 //        setTheme(R.style.NoActionBar);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.detail);
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.detail);
 
         logo = findViewById(R.id.logo);
         cart = findViewById(R.id.cart);
@@ -53,8 +56,8 @@ public class Detail extends AppCompatActivity {
         price = findViewById(R.id.price);
         description = findViewById(R.id.description);
 
-        final String postid = getIntent().getStringExtra("postid");
-        final String userid = ((MyApplication)getApplication()).getId();
+        postid = getIntent().getStringExtra("postid");
+        userid = ((MyApplication)getApplication()).getUserobj().getId();
 //        final String postid = "3df5422b-f5c8-429e-8ea0-78ff9ac8b610";
 //        final String userid = "1466b7d0-e5c2-46d2-82f7-881c45ff8543";
 //        Log.e("Postid",postid);
@@ -152,11 +155,45 @@ public class Detail extends AppCompatActivity {
                         }
 
 
-                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                         databaseReference.child("Love").child((key) + "").setValue(love).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.e("DB_Commit", "Success!");
+
+                                DatabaseReference postref = FirebaseDatabase.getInstance().getReference().child("Post");
+                                Query query = postref.orderByChild("id").equalTo(postid);
+                                query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                                            int key = 0;
+                                            key = Integer.parseInt(ds.getKey());
+
+                                            PostObj postobj = ds.getValue(PostObj.class);
+                                            postobj.setLoveCount(postobj.getLoveCount()+1);
+
+                                            databaseReference.child("Post").child(key+"").setValue(postobj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.e("DB_Commit", "Success!");
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e("DB_Commit", "Fail!");
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -169,11 +206,46 @@ public class Detail extends AppCompatActivity {
                     }
                 } else {
 
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                     databaseReference.child("Love").child("1").setValue(love).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.e("DB_Commit", "Success!");
+
+                            DatabaseReference postref = FirebaseDatabase.getInstance().getReference().child("Post");
+                            Query query = postref.orderByChild("id").equalTo(postid);
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                                        int key = 0;
+                                        key = Integer.parseInt(ds.getKey());
+
+                                        PostObj postobj = ds.getValue(PostObj.class);
+                                        postobj.setLoveCount(postobj.getLoveCount()+1);
+
+                                        databaseReference.child("Post").child(key+"").setValue(postobj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.e("DB_Commit", "Success!");
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("DB_Commit", "Fail!");
+                                            }
+                                        });
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -210,6 +282,41 @@ public class Detail extends AppCompatActivity {
 
                     if(userid.equals(lovelove.getUserid())){
                         ds.getRef().removeValue();
+
+                        DatabaseReference postref = FirebaseDatabase.getInstance().getReference().child("Post");
+                        Query query = postref.orderByChild("id").equalTo(postid);
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                                    int key = 0;
+                                    key = Integer.parseInt(ds.getKey());
+
+                                    PostObj postobj = ds.getValue(PostObj.class);
+                                    postobj.setLoveCount(postobj.getLoveCount()-1);
+
+                                    DatabaseReference dbref = FirebaseDatabase.getInstance().getReference();
+                                    dbref.child("Post").child(key+"").setValue(postobj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.e("DB_Commit", "Success!");
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e("DB_Commit", "Fail!");
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
 
                 }

@@ -1,11 +1,13 @@
 package com.prometheus.gallery;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 
@@ -13,6 +15,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.prometheus.gallery.obj.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 //        navigation.setSelectedItemId(R.id.navigation_home);
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -82,4 +95,97 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         overridePendingTransition(0, 0);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                goToPage("search");
+                return true;
+            case R.id.action_cart:
+                goToPage("cart");
+
+                return true;
+            case R.id.action_profile:
+                goToPage("profile");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void goToPage(String pagename){
+        if(pagename.equals("search")){
+
+        }
+        else if(pagename.equals("cart")){
+
+        }
+        else if(pagename.equals("profile")){
+            if(((MyApplication)getApplication()).getUserobj()==null){
+                Intent i = new Intent(MainActivity.this,Login.class);
+                startActivity(i);
+            }
+            else{
+                Intent i = new Intent(MainActivity.this,Profile.class);
+                startActivity(i);
+            }
+        }
+    }
+
+    //get top love posts
+//    public void fetchTopLove() {
+//
+//        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Love");
+//        Query query = databaseReference.orderByChild("email").equalTo(email);
+//        query.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                if(!dataSnapshot.exists()){
+//                    Toast.makeText(Login.this, "Email Incorrect!", Toast.LENGTH_SHORT).show();
+//
+//                    return;
+//                }
+//
+//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                    String dbpw = ds.child("pw").getValue()+"";
+//
+//                    if(pw.equals(dbpw)){
+//                        User userobj = ds.getValue(User.class);
+////                            Log.e("User",userobj.toString());
+////                            Toast.makeText(Login.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+//
+////                            ((MyApplication)getApplication()).setLoginstate(true);
+////                            ((MyApplication)getApplication()).setId(ds.child("id").getValue()+"");
+////                            ((MyApplication)getApplication()).setUserType(ds.child("userType").getValue()+"");
+//                        ((MyApplication)getApplication()).setUserobj(userobj);
+//                        Log.e("User",((MyApplication)getApplication()).getUserobj().toString());
+//
+//
+//                        Toast.makeText(Login.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+//
+//
+//
+//                        Intent intent = new Intent(Login.this, home.class);
+//                        startActivity(intent);
+//                    }
+//                    else{
+//
+//                        Toast.makeText(Login.this, "Password Incorrect!", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.e("DatabaseError", databaseError.getMessage());
+//            }
+//
+//        });
+//    }
+
 }

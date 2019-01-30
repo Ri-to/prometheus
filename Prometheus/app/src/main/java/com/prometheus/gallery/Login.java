@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.prometheus.gallery.obj.User;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -111,17 +112,23 @@ public class Login extends AppCompatActivity {
                         String dbpw = ds.child("pw").getValue()+"";
 
                         if(pw.equals(dbpw)){
+                            User userobj = ds.getValue(User.class);
+//                            Log.e("User",userobj.toString());
 //                            Toast.makeText(Login.this, "Login Successful.", Toast.LENGTH_SHORT).show();
 
 //                            ((MyApplication)getApplication()).setLoginstate(true);
-                            ((MyApplication)getApplication()).setId(ds.child("id").getValue()+"");
-                            ((MyApplication)getApplication()).setUserType(ds.child("userType").getValue()+"");
+//                            ((MyApplication)getApplication()).setId(ds.child("id").getValue()+"");
+//                            ((MyApplication)getApplication()).setUserType(ds.child("userType").getValue()+"");
+                            ((MyApplication)getApplication()).setUserobj(userobj);
+                            Log.e("User",((MyApplication)getApplication()).getUserobj().toString());
+
 
                             Toast.makeText(Login.this, "Login Successful.", Toast.LENGTH_SHORT).show();
 
                             DismissDialog();
 
                             Intent intent = new Intent(Login.this, Post.class);
+//                            Intent intent = new Intent(Login.this, home.class);
                             startActivity(intent);
                         }
                         else{

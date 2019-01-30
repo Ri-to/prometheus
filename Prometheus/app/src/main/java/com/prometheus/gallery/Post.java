@@ -432,7 +432,7 @@ public class Post extends AppCompatActivity {
                         postobj.setDescription(description.getText().toString());
                         postobj.setPrice(Double.parseDouble(price.getText().toString()));
                         postobj.setPhotoPath(filepathonline.toString());
-                        postobj.setCreatedBy(((MyApplication)getApplication()).getId());
+                        postobj.setCreatedBy(((MyApplication)getApplication()).getUserobj().getId());
 
                         SimpleDateFormat f = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
                         f.setTimeZone(TimeZone.getTimeZone("UTC"));
