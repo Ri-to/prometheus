@@ -3,6 +3,8 @@ package com.prometheus.gallery;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.prometheus.gallery.adapter.SlidingImage_Adapter;
@@ -72,20 +74,21 @@ public class home extends MainActivity
             }
         }, 3000, 3000);
 
+//        indicator.setOnClickListener(new ViewPager.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                switch ()
+//            }
+//        });
         // Pager listener over indicator
         indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
             @Override
             public void onPageSelected(int position) {
                 currentPage = position;
-
             }
-
             @Override
             public void onPageScrolled(int pos, float arg1, int arg2) {
-
             }
-
             @Override
             public void onPageScrollStateChanged(int pos) {
 

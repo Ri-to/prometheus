@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.prometheus.gallery.R;
 
@@ -38,18 +39,31 @@ public class SlidingImage_Adapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup view, int position) {
+    public Object instantiateItem(ViewGroup view, final int position) {
         View imageLayout = inflater.inflate(R.layout.slidingimages_layout, view, false);
 
         assert imageLayout != null;
         final ImageView imageView = (ImageView) imageLayout
                 .findViewById(R.id.image);
 
-
         imageView.setImageResource(IMAGES.get(position));
-
         view.addView(imageLayout, 0);
-
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (position){
+                    case 0:
+                        Toast.makeText(context, "you clicked image " + (position + 1), Toast.LENGTH_LONG).show();
+                    case 1:
+                        Toast.makeText(context, "you clicked image " + (position + 1), Toast.LENGTH_LONG).show();
+                    case 2:
+                        Toast.makeText(context, "you clicked image " + (position + 1), Toast.LENGTH_LONG).show();
+                    case 3:
+                        Toast.makeText(context, "you clicked image " + (position + 1), Toast.LENGTH_LONG).show();
+                }
+//                Toast.makeText(context, "you clicked image " + (position + 1), Toast.LENGTH_LONG).show();
+            }
+        });
         return imageLayout;
     }
 
