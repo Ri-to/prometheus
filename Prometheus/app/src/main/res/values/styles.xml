@@ -22,7 +22,7 @@
     <style name="prometheus_">
 
         <item name="android:textSize">
-            40sp
+            25sp
         </item>
 
         <item name="android:textColor">

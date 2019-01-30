@@ -43,6 +43,7 @@ public class Register extends AppCompatActivity {
     private EditText conpw;
     private Button btn_register;
     private TextView btn_login;
+    private ImageView background_register;
     private User user;
 
     private ProgressDialog progressDialog;
@@ -64,12 +65,17 @@ public class Register extends AppCompatActivity {
 //                .transform(new BlurTransformation(getApplicationContext()))
 //                .into((ImageView) findViewById(R.id.background_register));  //for photo blur
 
-        Picasso.get()
-                .load(R.drawable.background_register)
-                .resize(1440,2560 )
-                .onlyScaleDown()
-                .into((ImageView) findViewById(R.id.background_register));
+//        Picasso.get()
+//                .load(R.drawable.background_register)
+//                .error(R.mipmap.ic_launcher)
+//                .placeholder(R.mipmap.ic_launcher)
+//                .into((ImageView) findViewById(R.id.background_register));
+//
+//        Picasso.get().setLoggingEnabled(true);
 
+        background_register = findViewById(R.id.background_register);
+
+        background_register.setImageResource(R.drawable.background_register);
 
         fname = findViewById(R.id.fname);
         lname = findViewById(R.id.lname);

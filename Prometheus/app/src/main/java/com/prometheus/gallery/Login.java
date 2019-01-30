@@ -32,6 +32,10 @@ public class Login extends AppCompatActivity {
     private Button btn_login;
     private TextView btn_register;
 
+    private ImageView background_register;
+
+    private String goback = "";
+
     private ProgressDialog progressDialog;
 
     public void DismissDialog(){
@@ -46,11 +50,17 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        Picasso.get()
-                .load(R.drawable.background_register)
-                .resize(1440,2560 )
-                .onlyScaleDown()
-                .into((ImageView) findViewById(R.id.background_register));
+//        Picasso.get()
+//                .load(R.drawable.background_register)
+//                .error(R.mipmap.ic_launcher)
+//                .placeholder(R.mipmap.ic_launcher)
+//                .into((ImageView) findViewById(R.id.background_register));
+//
+//        Picasso.get().setLoggingEnabled(true);
+        goback = getIntent().getStringExtra("goback")==null?"":getIntent().getStringExtra("goback")+"";
+        background_register = findViewById(R.id.background_register);
+
+        background_register.setImageResource(R.drawable.background_register);
 
         email = findViewById(R.id.email);
         pw = findViewById(R.id.pw);
@@ -127,9 +137,23 @@ public class Login extends AppCompatActivity {
 
                             DismissDialog();
 
-                            Intent intent = new Intent(Login.this, Post.class);
-//                            Intent intent = new Intent(Login.this, home.class);
-                            startActivity(intent);
+//                            Intent intent = new Intent(Login.this, Post.class);
+//                            if(goback.equals("")){
+//                                Intent intent = new Intent(Login.this, home.class);
+//                                startActivity(intent);
+//                            }
+//                            else{
+//                                finish();
+//                            }
+                            if(((MyApplication)getApplication()).getGobacklogin().equals("detail")){
+                                Intent intent = new Intent(Login.this, Detail.class);
+                                intent.putExtra("postid",((MyApplication)getApplication()).getPostidforgoback());
+                                startActivity(intent);
+                            }else{
+                                Intent intent = new Intent(Login.this, home.class);
+                                startActivity(intent);
+                            }
+
                         }
                         else{
                             DismissDialog();

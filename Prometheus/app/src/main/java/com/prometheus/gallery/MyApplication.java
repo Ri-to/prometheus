@@ -31,6 +31,36 @@ public class MyApplication extends Application {
 
     private User userobj = null;
 
+    private String gobacklogin = "";
+
+    private String comefromhomedetail="";
+
+    public String getComefromhomedetail() {
+        return comefromhomedetail;
+    }
+
+    public void setComefromhomedetail(String comefromhomedetail) {
+        this.comefromhomedetail = comefromhomedetail;
+    }
+
+    public String getPostidforgoback() {
+        return postidforgoback;
+    }
+
+    public void setPostidforgoback(String postidforgoback) {
+        this.postidforgoback = postidforgoback;
+    }
+
+    private String postidforgoback = "";
+
+    public String getGobacklogin() {
+        return gobacklogin;
+    }
+
+    public void setGobacklogin(String gobacklogin) {
+        this.gobacklogin = gobacklogin;
+    }
+
     public User getUserobj() {
         return userobj;
     }
@@ -38,4 +68,6 @@ public class MyApplication extends Application {
     public void setUserobj(User userobj) {
         this.userobj = userobj;
     }
+
+
 }

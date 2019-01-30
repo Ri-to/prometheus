@@ -1,9 +1,12 @@
 package com.prometheus.gallery;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -29,20 +32,60 @@ import com.prometheus.gallery.obj.User;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FloatingActionButton floatbtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        floatbtn = findViewById(R.id.floatbtn);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 //        navigation.setSelectedItemId(R.id.navigation_home);
 
+
         final FloatingActionButton fab = findViewById(R.id.floatbtn);
+
+        String userType = "NormalUser";
+
+        if(((MyApplication)getApplication()).getUserobj()!=null){
+            userType = ((MyApplication)getApplication()).getUserobj().getUserType();
+            if(userType.equals("Artist")){
+                fab.setImageResource(R.drawable.ic_plus_24);
+            }
+            else{
+                fab.setImageResource(R.drawable.workwithus);
+            }
+        }
+        else{
+            fab.setImageResource(R.drawable.workwithus);
+        }
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Work with us", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                view.startAnimation(((MyApplication)getApplication()).buttonClick);
+
+                if(((MyApplication)getApplication()).getUserobj()==null){
+                    Intent i = new Intent(MainActivity.this, Login.class);
+                    startActivity(i);
+                }
+                else{
+                    if(((MyApplication)getApplication()).getUserobj().getUserType().equals("NormalUser")){
+//                        Toast.makeText(MainActivity.this, "Nice", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(MainActivity.this, WorkWithUs.class);  //change
+                        startActivity(i);
+                    }
+                    else if(((MyApplication)getApplication()).getUserobj().getUserType().equals("Artist")){
+                        Intent i = new Intent(MainActivity.this, Post.class);
+                        startActivity(i);
+                    }
+                }
+
+//                Snackbar.make(view, "Work with us", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
     }
@@ -145,58 +188,53 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //get top love posts
-//    public void fetchTopLove() {
-//
-//        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Love");
-//        Query query = databaseReference.orderByChild("email").equalTo(email);
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                if(!dataSnapshot.exists()){
-//                    Toast.makeText(Login.this, "Email Incorrect!", Toast.LENGTH_SHORT).show();
-//
-//                    return;
-//                }
-//
-//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                    String dbpw = ds.child("pw").getValue()+"";
-//
-//                    if(pw.equals(dbpw)){
-//                        User userobj = ds.getValue(User.class);
-////                            Log.e("User",userobj.toString());
-////                            Toast.makeText(Login.this, "Login Successful.", Toast.LENGTH_SHORT).show();
-//
-////                            ((MyApplication)getApplication()).setLoginstate(true);
-////                            ((MyApplication)getApplication()).setId(ds.child("id").getValue()+"");
-////                            ((MyApplication)getApplication()).setUserType(ds.child("userType").getValue()+"");
-//                        ((MyApplication)getApplication()).setUserobj(userobj);
-//                        Log.e("User",((MyApplication)getApplication()).getUserobj().toString());
-//
-//
-//                        Toast.makeText(Login.this, "Login Successful.", Toast.LENGTH_SHORT).show();
-//
-//
-//
-//                        Intent intent = new Intent(Login.this, home.class);
-//                        startActivity(intent);
-//                    }
-//                    else{
-//
-//                        Toast.makeText(Login.this, "Password Incorrect!", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Log.e("DatabaseError", databaseError.getMessage());
-//            }
-//
-//        });
-//    }
+    @Override
+    public void onBackPressed() {
+        // Do nothing
+//        finish();
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Closing Application")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        finishAffinity();
+//                        finish();
+//                        System.exit(0);
+                        Intent a = new Intent(Intent.ACTION_MAIN);
+                        a.addCategory(Intent.CATEGORY_HOME);
+                        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        MainActivity.this.startActivity(a);
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        final FloatingActionButton fab = findViewById(R.id.floatbtn);
+
+        String userType = "NormalUser";
+
+        if(((MyApplication)getApplication()).getUserobj()!=null){
+            userType = ((MyApplication)getApplication()).getUserobj().getUserType();
+            if(userType.equals("Artist")){
+                fab.setImageResource(R.drawable.ic_plus_24);
+            }
+            else{
+                fab.setImageResource(R.drawable.workwithus);
+            }
+        }
+        else{
+            fab.setImageResource(R.drawable.workwithus);
+        }
+    }
 
 }

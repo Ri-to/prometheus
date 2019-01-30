@@ -37,7 +37,7 @@ public class Detail extends AppCompatActivity {
     private TextView description;
 
     private String postid;
-    private String userid;
+    private String userid = "";
 
     private DatabaseReference mDatabase;
 
@@ -56,8 +56,15 @@ public class Detail extends AppCompatActivity {
         price = findViewById(R.id.price);
         description = findViewById(R.id.description);
 
+        ((MyApplication)getApplication()).setGobacklogin("");
+        ((MyApplication)getApplication()).setPostidforgoback("");
+
         postid = getIntent().getStringExtra("postid");
-        userid = ((MyApplication)getApplication()).getUserobj().getId();
+//        Log.e("Detail User",((MyApplication)getApplication()).getUserobj().toString());
+        if(((MyApplication)getApplication()).getUserobj()!=null){
+            userid = ((MyApplication)getApplication()).getUserobj().getId();
+            CheckLovedb(postid,userid);
+        }
 //        final String postid = "3df5422b-f5c8-429e-8ea0-78ff9ac8b610";
 //        final String userid = "1466b7d0-e5c2-46d2-82f7-881c45ff8543";
 //        Log.e("Postid",postid);
@@ -104,22 +111,32 @@ public class Detail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (love.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.nolove).getConstantState()) {
-                    love.setImageResource(R.drawable.love);
-                    LoveObj loveobj = new LoveObj();
-                    loveobj.setId(UUID.randomUUID().toString());
-                    loveobj.setPostid(postid);
-                    loveobj.setUserid(userid);
+                if(((MyApplication)getApplication()).getUserobj()!=null){
+                    if (love.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.nolove).getConstantState()) {
+                        love.setImageResource(R.drawable.love);
+                        LoveObj loveobj = new LoveObj();
+                        loveobj.setId(UUID.randomUUID().toString());
+                        loveobj.setPostid(postid);
+                        loveobj.setUserid(userid);
 
-                    InsertUpdateDB(loveobj,false);
+                        InsertUpdateDB(loveobj,false);
 
-                } else if (love.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.love).getConstantState()) {
+                    } else if (love.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.love).getConstantState()) {
 //                    Picasso.get()
 //                            .load(R.drawable.nolove)
 //                            .error(R.mipmap.ic_launcher)
 //                            .into(love);
-                    love.setImageResource(R.drawable.nolove);
-                    DeleteDB(postid,userid);
+                        love.setImageResource(R.drawable.nolove);
+                        DeleteDB(postid,userid);
+                    }
+                }
+                else{
+                    Toast.makeText(Detail.this, "Please Login First", Toast.LENGTH_SHORT).show();
+                    ((MyApplication)getApplication()).setGobacklogin("detail");
+                    ((MyApplication)getApplication()).setPostidforgoback(postid);
+                    Intent i = new Intent(Detail.this,Login.class);
+//                    i.putExtra("goback","back");
+                    startActivity(i);
                 }
 
             }
@@ -330,4 +347,49 @@ public class Detail extends AppCompatActivity {
 
         });
     }
+
+    //check user love or not
+    public void CheckLovedb(final String postid, final String userid) {
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Love");
+        Query query = databaseReference.orderByChild("postid").equalTo(postid);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    LoveObj lovelove = ds.getValue(LoveObj.class);
+                    Log.e("DB_Commit", "Success!"+ds.toString());
+                    Log.e("DB_Commit", "Success!"+ds.getKey());
+
+                    if(userid.equals(lovelove.getUserid())){
+                        love.setImageResource(R.drawable.love);
+                        Log.e("setlove","Success");
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Do nothing
+//        finish();
+
+        if(((MyApplication)getApplication()).getComefromhomedetail().equals("home")){
+            Intent i = new Intent(this,home.class);
+            startActivity(i);
+        }
+
+        super.onBackPressed();
+    }
+
 }

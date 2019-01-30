@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.prometheus.gallery.obj.User;
@@ -20,12 +21,17 @@ public class Profile extends AppCompatActivity {
     private TextView createddate;
     private TextView usertype;
     private Button btn_logout;
+    private ImageView background_register;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 //        setTheme(R.style.NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+
+        background_register = findViewById(R.id.background_register);
+
+        background_register.setImageResource(R.drawable.background_register);
 
         User userobj = ((MyApplication)getApplication()).getUserobj();
 
