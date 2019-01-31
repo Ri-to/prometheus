@@ -43,7 +43,7 @@
                 android:layout_weight="8"
                 android:gravity="center_vertical"
                 android:text="Your\nArt\nYour\nDream"
-                android:textAppearance="@style/prometheus_"
+                android:textSize="40sp"
                 android:textColor="#FFFFFF"
                 app:fontFamily="Francois One" />
 

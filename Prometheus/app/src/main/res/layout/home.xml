@@ -57,26 +57,29 @@
                         android:layout_width="190dp"
                         android:layout_height="190dp"
                         android:layout_margin="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bg_signin"/>
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_image_24dp"/>
                     <ImageView
+                        android:id="@+id/imgloved2"
                         android:layout_width="190dp"
                         android:layout_height="190dp"
                         android:layout_margin="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bg_signin"/>
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_image_24dp"/>
                     <ImageView
+                        android:id="@+id/imgloved3"
                         android:layout_width="190dp"
                         android:layout_height="190dp"
                         android:layout_margin="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bg_signin"/>
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_image_24dp"/>
                     <ImageView
+                        android:id="@+id/imgloved4"
                         android:layout_width="190dp"
                         android:layout_height="190dp"
                         android:layout_margin="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bg_signin"/>
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_image_24dp"/>
                 </LinearLayout>
             </HorizontalScrollView>
             <TextView

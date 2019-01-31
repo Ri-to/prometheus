@@ -74,6 +74,7 @@ public class Post extends AppCompatActivity {
     private RadioButton yes;
     private Uri filepath;
     private Uri filepathonline;
+    private ImageView background_register;
 
     private TextView title;
     private TextView description;
@@ -99,11 +100,15 @@ public class Post extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post);
 
-        Picasso.get()
-                .load(R.drawable.background_register)
-                .resize(1440,2560 )
-                .onlyScaleDown()
-                .into((ImageView) findViewById(R.id.background_register));
+//        Picasso.get()
+//                .load(R.drawable.background_register)
+//                .resize(1440,2560 )
+//                .onlyScaleDown()
+//                .into((ImageView) findViewById(R.id.background_register));
+
+        background_register = findViewById(R.id.background_register);
+
+        background_register.setImageResource(R.drawable.background_register);
 
         getimgbtn = findViewById(R.id.getimgbtn);
         img = findViewById(R.id.img);
@@ -432,7 +437,7 @@ public class Post extends AppCompatActivity {
                         postobj.setDescription(description.getText().toString());
                         postobj.setPrice(Double.parseDouble(price.getText().toString()));
                         postobj.setPhotoPath(filepathonline.toString());
-                        postobj.setCreatedBy(((MyApplication)getApplication()).getId());
+                        postobj.setCreatedBy(((MyApplication)getApplication()).getUserobj().getId());
 
                         SimpleDateFormat f = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
                         f.setTimeZone(TimeZone.getTimeZone("UTC"));

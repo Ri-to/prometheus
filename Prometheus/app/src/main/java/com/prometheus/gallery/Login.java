@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.prometheus.gallery.obj.User;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -30,6 +31,10 @@ public class Login extends AppCompatActivity {
     private EditText pw;
     private Button btn_login;
     private TextView btn_register;
+
+    private ImageView background_register;
+
+    private String goback = "";
 
     private ProgressDialog progressDialog;
 
@@ -45,11 +50,17 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        Picasso.get()
-                .load(R.drawable.background_register)
-                .resize(1440,2560 )
-                .onlyScaleDown()
-                .into((ImageView) findViewById(R.id.background_register));
+//        Picasso.get()
+//                .load(R.drawable.background_register)
+//                .error(R.mipmap.ic_launcher)
+//                .placeholder(R.mipmap.ic_launcher)
+//                .into((ImageView) findViewById(R.id.background_register));
+//
+//        Picasso.get().setLoggingEnabled(true);
+        goback = getIntent().getStringExtra("goback")==null?"":getIntent().getStringExtra("goback")+"";
+        background_register = findViewById(R.id.background_register);
+
+        background_register.setImageResource(R.drawable.background_register);
 
         email = findViewById(R.id.email);
         pw = findViewById(R.id.pw);
@@ -111,18 +122,38 @@ public class Login extends AppCompatActivity {
                         String dbpw = ds.child("pw").getValue()+"";
 
                         if(pw.equals(dbpw)){
+                            User userobj = ds.getValue(User.class);
+//                            Log.e("User",userobj.toString());
 //                            Toast.makeText(Login.this, "Login Successful.", Toast.LENGTH_SHORT).show();
 
 //                            ((MyApplication)getApplication()).setLoginstate(true);
-                            ((MyApplication)getApplication()).setId(ds.child("id").getValue()+"");
-                            ((MyApplication)getApplication()).setUserType(ds.child("userType").getValue()+"");
+//                            ((MyApplication)getApplication()).setId(ds.child("id").getValue()+"");
+//                            ((MyApplication)getApplication()).setUserType(ds.child("userType").getValue()+"");
+                            ((MyApplication)getApplication()).setUserobj(userobj);
+                            Log.e("User",((MyApplication)getApplication()).getUserobj().toString());
+
 
                             Toast.makeText(Login.this, "Login Successful.", Toast.LENGTH_SHORT).show();
 
                             DismissDialog();
 
-                            Intent intent = new Intent(Login.this, Post.class);
-                            startActivity(intent);
+//                            Intent intent = new Intent(Login.this, Post.class);
+//                            if(goback.equals("")){
+//                                Intent intent = new Intent(Login.this, home.class);
+//                                startActivity(intent);
+//                            }
+//                            else{
+//                                finish();
+//                            }
+                            if(((MyApplication)getApplication()).getGobacklogin().equals("detail")){
+                                Intent intent = new Intent(Login.this, Detail.class);
+                                intent.putExtra("postid",((MyApplication)getApplication()).getPostidforgoback());
+                                startActivity(intent);
+                            }else{
+                                Intent intent = new Intent(Login.this, home.class);
+                                startActivity(intent);
+                            }
+
                         }
                         else{
                             DismissDialog();

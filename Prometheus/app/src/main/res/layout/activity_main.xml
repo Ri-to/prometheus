@@ -21,7 +21,7 @@ android:layout_height="match_parent">
         app:maxImageSize="50dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/navigation"
-        app:srcCompat="@drawable/workwithus" />
+        android:src="@drawable/workwithus" />
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"

@@ -1,8 +1,12 @@
 package com.prometheus.gallery;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -16,22 +20,72 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.prometheus.gallery.obj.User;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FloatingActionButton floatbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        floatbtn = findViewById(R.id.floatbtn);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 //        navigation.setSelectedItemId(R.id.navigation_home);
+
+
         final FloatingActionButton fab = findViewById(R.id.floatbtn);
+
+        String userType = "NormalUser";
+
+        if(((MyApplication)getApplication()).getUserobj()!=null){
+            userType = ((MyApplication)getApplication()).getUserobj().getUserType();
+            if(userType.equals("Artist")){
+                fab.setImageResource(R.drawable.ic_plus_24);
+            }
+            else{
+                fab.setImageResource(R.drawable.workwithus);
+            }
+        }
+        else{
+            fab.setImageResource(R.drawable.workwithus);
+        }
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Work with us", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                view.startAnimation(((MyApplication)getApplication()).buttonClick);
+
+                if(((MyApplication)getApplication()).getUserobj()==null){
+                    Intent i = new Intent(MainActivity.this, Login.class);
+                    startActivity(i);
+                }
+                else{
+                    if(((MyApplication)getApplication()).getUserobj().getUserType().equals("NormalUser")){
+//                        Toast.makeText(MainActivity.this, "Nice", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(MainActivity.this, WorkWithUs.class);  //change
+                        startActivity(i);
+                    }
+                    else if(((MyApplication)getApplication()).getUserobj().getUserType().equals("Artist")){
+                        Intent i = new Intent(MainActivity.this, Post.class);
+                        startActivity(i);
+                    }
+                }
+
+//                Snackbar.make(view, "Work with us", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
     }
@@ -98,4 +152,92 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         overridePendingTransition(0, 0);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                goToPage("search");
+                return true;
+            case R.id.action_cart:
+                goToPage("cart");
+
+                return true;
+            case R.id.action_profile:
+                goToPage("profile");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void goToPage(String pagename){
+        if(pagename.equals("search")){
+
+        }
+        else if(pagename.equals("cart")){
+
+        }
+        else if(pagename.equals("profile")){
+            if(((MyApplication)getApplication()).getUserobj()==null){
+                Intent i = new Intent(MainActivity.this,Login.class);
+                startActivity(i);
+            }
+            else{
+                Intent i = new Intent(MainActivity.this,Profile.class);
+                startActivity(i);
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Do nothing
+//        finish();
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Closing Application")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        finishAffinity();
+//                        finish();
+//                        System.exit(0);
+                        Intent a = new Intent(Intent.ACTION_MAIN);
+                        a.addCategory(Intent.CATEGORY_HOME);
+                        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        MainActivity.this.startActivity(a);
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        final FloatingActionButton fab = findViewById(R.id.floatbtn);
+
+        String userType = "NormalUser";
+
+        if(((MyApplication)getApplication()).getUserobj()!=null){
+            userType = ((MyApplication)getApplication()).getUserobj().getUserType();
+            if(userType.equals("Artist")){
+                fab.setImageResource(R.drawable.ic_plus_24);
+            }
+            else{
+                fab.setImageResource(R.drawable.workwithus);
+            }
+        }
+        else{
+            fab.setImageResource(R.drawable.workwithus);
+        }
+    }
+
 }

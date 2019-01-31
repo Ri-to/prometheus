@@ -12,7 +12,7 @@
         android:title="@string/cart"
         app:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/action_settings"
+    <item android:id="@+id/action_profile"
         android:icon="@drawable/ic_account_circle_white_40dp"
         android:title="@string/title_events"
         app:showAsAction="ifRoom"/>

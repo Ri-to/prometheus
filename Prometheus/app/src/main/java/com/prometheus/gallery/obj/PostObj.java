@@ -14,6 +14,15 @@ public class PostObj implements Serializable {
     private String description = "";
     private String framesize = "";
     private int viewCount = 0;
+    private int loveCount = 0;
+
+    public int getLoveCount() {
+        return loveCount;
+    }
+
+    public void setLoveCount(int loveCount) {
+        this.loveCount = loveCount;
+    }
 
     public String getId() {
         return id;
@@ -117,6 +126,7 @@ public class PostObj implements Serializable {
                 ", description='" + description + '\'' +
                 ", framesize='" + framesize + '\'' +
                 ", viewCount=" + viewCount +
+                ", loveCount=" + loveCount +
                 '}';
     }
 }
