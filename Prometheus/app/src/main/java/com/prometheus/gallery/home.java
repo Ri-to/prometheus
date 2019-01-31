@@ -25,6 +25,7 @@ public class home extends MainActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentLayout(R.layout.home) ;
         init();
@@ -73,14 +74,6 @@ public class home extends MainActivity
                 handler.post(Update);
             }
         }, 3000, 3000);
-
-//        indicator.setOnClickListener(new ViewPager.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                switch ()
-//            }
-//        });
-        // Pager listener over indicator
         indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {

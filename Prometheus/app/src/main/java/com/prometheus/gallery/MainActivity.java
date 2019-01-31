@@ -8,6 +8,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 
@@ -59,11 +60,14 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(ii);
                     overridePendingTransition(0, 0);
                     return true;
+                case R.id.navigation_event:
+                    Intent iii = new Intent(MainActivity.this, event.class);
+                    startActivity(iii);
+                    overridePendingTransition(0, 0);
+                    return true;
+
                 case R.id.navigation_setting:
 //                    mTextMessage.setText(R.string.title_setting);
-//                    return true;
-                case R.id.navigation_event:
-//                    mTextMessage.setText(R.string.title_events);
 //                    return true;
             }
 //            transaction.commit();
