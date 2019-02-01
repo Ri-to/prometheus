@@ -74,6 +74,7 @@
         <activity android:name=".sub_art1"></activity>
         <activity android:name=".sub_art2"></activity>
         <activity android:name=".event"></activity>
+        <activity android:name=".event_details"></activity>
         <activity android:name=".Profile"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 

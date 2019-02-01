@@ -107,9 +107,10 @@
                         android:id="@+id/imgviewed2"
                         android:layout_width="190dp"
                         android:layout_height="190dp"
-                        android:padding="8dp"
+                        android:layout_margin="5dp"
                         android:scaleType="centerInside"
                         app:srcCompat="@drawable/ic_image_24dp"/>
+
                     <ImageView
                         android:id="@+id/imgviewed3"
                         android:layout_width="190dp"
@@ -128,14 +129,9 @@
             </HorizontalScrollView>
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:orientation="horizontal"
                 tools:ignore="MissingConstraints">
-                <ImageView
-                    android:layout_width="170dp"
-                    android:layout_height="35dp"
-                    android:padding="8dp"
-                    android:scaleType="centerCrop" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toTopOf="parent">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_alignParentTop="true" />
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:centered="true"
+            app:fillColor="#000000"
+            app:pageColor="#FFFFFF"
+            app:snap="false" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Super Cool Art Event"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Organizer Name"
+            android:layout_gravity="right"
+            android:layout_marginRight="80dp"
+            android:textStyle="bold"
+            android:textColor="#FF8C00"/>
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="#000000" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1"
+            android:layout_margin="15dp"
+            android:layout_gravity="center">
+            <TableRow>
+                <TextView
+                    android:text="Date"
+                    android:padding="3dp"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:text="2 Feb,2019"
+                    android:padding="3dp"
+                    android:textSize="15sp"
+                    android:gravity="end"
+                    android:id="@+id/date"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Time"
+                    android:padding="3dp"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:text="9:00 AM"
+                    android:padding="3dp"
+                    android:textSize="15sp"
+                    android:gravity="end"
+                    android:id="@+id/time"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Place"
+                    android:textSize="15sp"
+                    android:padding="3dp"/>
+
+                <TextView
+                    android:text="Insein"
+                    android:padding="3dp"
+                    android:textSize="15sp"
+                    android:gravity="end"
+                    android:id="@+id/place"/>
+            </TableRow>
+        </TableLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:layout_marginLeft="5dp"
+            android:textSize="20sp"/>
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center"
+            android:src="@drawable/facebook"/>
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
