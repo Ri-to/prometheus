@@ -34,12 +34,18 @@ public class home extends MainActivity
     private static final Integer[] IMAGES= {R.drawable.bg_signin,R.drawable.bg_signin,R.drawable.bg_signin,R.drawable.bg_signin};
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
     private ArrayList<PostObj> TopLovedPosts = new ArrayList<>();
+    private ArrayList<PostObj> TopViewedPosts = new ArrayList<>();
     private ImageView imageView1;
 
     private ImageView imgloved1;
     private ImageView imgloved2;
     private ImageView imgloved3;
     private ImageView imgloved4;
+
+    private ImageView imgviewed1;
+    private ImageView imgviewed2;
+    private ImageView imgviewed3;
+    private ImageView imgviewed4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +59,13 @@ public class home extends MainActivity
         imgloved3 = findViewById(R.id.imgloved3);
         imgloved4 = findViewById(R.id.imgloved4);
 
+        imgviewed1 = findViewById(R.id.imgviewed1);
+        imgviewed2 = findViewById(R.id.imgviewed2);
+        imgviewed3 = findViewById(R.id.imgviewed3);
+        imgviewed4 = findViewById(R.id.imgviewed4);
+
         fetchTopLovePost();
+        fetchTopViewPost();
 
         ((MyApplication)getApplication()).setComefromhomedetail("");
     }
@@ -122,87 +134,176 @@ public class home extends MainActivity
 
 
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Post");
-        Query query = databaseReference.orderByChild("loveCount").limitToFirst(4);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query lovequery = databaseReference.orderByChild("loveCount").limitToFirst(4);
+        lovequery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int i = 1;
                 for (final DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     PostObj post = ds.getValue(PostObj.class);
                     TopLovedPosts.add(post);
-
-
-
-                    i++;
-
                 }
 
                 java.util.Collections.reverse(TopLovedPosts);
                 for (int postcount=0;postcount<TopLovedPosts.size();postcount++){
                     if(postcount==0){
-                            final PostObj post = TopLovedPosts.get(0);
-                            Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved1);
-                            imgloved1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                        final PostObj post = TopLovedPosts.get(0);
+                        Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved1);
+                        imgloved1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                                    view.startAnimation(((MyApplication) getApplication()).buttonClick);
-                                    ((MyApplication)getApplication()).setComefromhomedetail("home");
-                                    Intent idetail = new Intent(home.this,Detail.class);
-                                    idetail.putExtra("postid",post.getId());
-                                    startActivity(idetail);
-                                }
-                            });
+                                view.startAnimation(((MyApplication) getApplication()).buttonClick);
+                                ((MyApplication)getApplication()).setComefromhomedetail("home");
+                                Intent idetail = new Intent(home.this,Detail.class);
+                                idetail.putExtra("postid",post.getId());
+                                startActivity(idetail);
+                            }
+                        });
 
 
                     }
                     if(postcount==1){
                         final PostObj post = TopLovedPosts.get(1);
-                            Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved2);
-                            imgloved2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                        Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved2);
+                        imgloved2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                                    view.startAnimation(((MyApplication) getApplication()).buttonClick);
-                                    ((MyApplication)getApplication()).setComefromhomedetail("home");
-                                    Intent idetail = new Intent(home.this,Detail.class);
-                                    idetail.putExtra("postid",post.getId());
-                                    startActivity(idetail);
-                                }
-                            });
+                                view.startAnimation(((MyApplication) getApplication()).buttonClick);
+                                ((MyApplication)getApplication()).setComefromhomedetail("home");
+                                Intent idetail = new Intent(home.this,Detail.class);
+                                idetail.putExtra("postid",post.getId());
+                                startActivity(idetail);
+                            }
+                        });
 
                     }
                     if(postcount==2){
                         final PostObj post = TopLovedPosts.get(2);
-                            Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved3);
-                            imgloved3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                        Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved3);
+                        imgloved3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                                    view.startAnimation(((MyApplication) getApplication()).buttonClick);
-                                    ((MyApplication)getApplication()).setComefromhomedetail("home");
-                                    Intent idetail = new Intent(home.this,Detail.class);
-                                    idetail.putExtra("postid",post.getId());
-                                    startActivity(idetail);
-                                }
-                            });
+                                view.startAnimation(((MyApplication) getApplication()).buttonClick);
+                                ((MyApplication)getApplication()).setComefromhomedetail("home");
+                                Intent idetail = new Intent(home.this,Detail.class);
+                                idetail.putExtra("postid",post.getId());
+                                startActivity(idetail);
+                            }
+                        });
 
                     }
                     if(postcount==3){
                         final PostObj post = TopLovedPosts.get(3);
-                            Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved4);
-                            imgloved4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                        Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved4);
+                        imgloved4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                                    view.startAnimation(((MyApplication) getApplication()).buttonClick);
-                                    ((MyApplication)getApplication()).setComefromhomedetail("home");
-                                    Intent idetail = new Intent(home.this,Detail.class);
-                                    idetail.putExtra("postid",post.getId());
-                                    startActivity(idetail);
-                                }
-                            });
+                                view.startAnimation(((MyApplication) getApplication()).buttonClick);
+                                ((MyApplication)getApplication()).setComefromhomedetail("home");
+                                Intent idetail = new Intent(home.this,Detail.class);
+                                idetail.putExtra("postid",post.getId());
+                                startActivity(idetail);
+                            }
+                        });
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("DatabaseError", databaseError.getMessage());
+            }
+
+        });
+
+
+
+    }
+
+    public void fetchTopViewPost(){
+
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Post");
+        Query viewquery = databaseReference.orderByChild("viewCount").limitToFirst(4);
+        viewquery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (final DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    PostObj post = ds.getValue(PostObj.class);
+                    TopViewedPosts.add(post);
+                }
+
+                java.util.Collections.reverse(TopViewedPosts);
+                for (int postcount=0;postcount<TopViewedPosts.size();postcount++){
+                    if(postcount==0){
+                        final PostObj post = TopViewedPosts.get(0);
+                        Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgviewed1);
+                        imgviewed1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                view.startAnimation(((MyApplication) getApplication()).buttonClick);
+                                ((MyApplication)getApplication()).setComefromhomedetail("home");
+                                Intent idetail = new Intent(home.this,Detail.class);
+                                idetail.putExtra("postid",post.getId());
+                                startActivity(idetail);
+                            }
+                        });
+
+
+                    }
+                    if(postcount==1){
+                        final PostObj post = TopViewedPosts.get(1);
+                        Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgviewed2);
+                        imgviewed2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                view.startAnimation(((MyApplication) getApplication()).buttonClick);
+                                ((MyApplication)getApplication()).setComefromhomedetail("home");
+                                Intent idetail = new Intent(home.this,Detail.class);
+                                idetail.putExtra("postid",post.getId());
+                                startActivity(idetail);
+                            }
+                        });
+
+                    }
+                    if(postcount==2){
+                        final PostObj post = TopViewedPosts.get(2);
+                        Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgviewed3);
+                        imgviewed3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                view.startAnimation(((MyApplication) getApplication()).buttonClick);
+                                ((MyApplication)getApplication()).setComefromhomedetail("home");
+                                Intent idetail = new Intent(home.this,Detail.class);
+                                idetail.putExtra("postid",post.getId());
+                                startActivity(idetail);
+                            }
+                        });
+
+                    }
+                    if(postcount==3){
+                        final PostObj post = TopViewedPosts.get(3);
+                        Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgviewed4);
+                        imgviewed4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                view.startAnimation(((MyApplication) getApplication()).buttonClick);
+                                ((MyApplication)getApplication()).setComefromhomedetail("home");
+                                Intent idetail = new Intent(home.this,Detail.class);
+                                idetail.putExtra("postid",post.getId());
+                                startActivity(idetail);
+                            }
+                        });
 
                     }
                 }
@@ -216,6 +317,4 @@ public class home extends MainActivity
 
         });
     }
-
-
 }

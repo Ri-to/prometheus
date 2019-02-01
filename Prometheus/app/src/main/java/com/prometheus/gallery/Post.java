@@ -1,14 +1,17 @@
 package com.prometheus.gallery;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -51,6 +54,7 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,6 +64,8 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+
+import id.zelory.compressor.Compressor;
 
 public class Post extends AppCompatActivity {
 
@@ -75,6 +81,8 @@ public class Post extends AppCompatActivity {
     private Uri filepath;
     private Uri filepathonline;
     private ImageView background_register;
+    private File compressedfile;
+    private File finalFile;
 
     private TextView title;
     private TextView description;
@@ -366,7 +374,11 @@ public class Post extends AppCompatActivity {
                     return;
                 }
 
-                uploadImage();
+                try {
+                    uploadImage();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 
             }
@@ -376,10 +388,18 @@ public class Post extends AppCompatActivity {
 
     }
 
-    private void uploadImage(){
-
-        if(filepath != null)
-        {
+    private void uploadImage() throws IOException {
+        if(finalFile!=null){
+            compressedfile = new Compressor(this)
+                    .setMaxWidth(700)
+                    .setQuality(75)
+                    .setCompressFormat(Bitmap.CompressFormat.JPEG)
+                    .compressToFile(finalFile);
+//        }
+//
+//        if(filepath != null)
+//        {
+            filepath = Uri.fromFile(compressedfile);
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Posting...");
             progressDialog.show();
@@ -476,29 +496,6 @@ public class Post extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-//            Uri selectedImage = data.getData();
-//            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-//
-//            Cursor cursor = getContentResolver().query(selectedImage,
-//                    filePathColumn, null, null, null);
-//            cursor.moveToFirst();
-//
-//            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//            String picturePath = cursor.getString(columnIndex);
-//            cursor.close();
-//
-//            img.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-//
-//        }
-//
-//
-//    }
-
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
@@ -506,22 +503,79 @@ public class Post extends AppCompatActivity {
 
         if (resultCode == RESULT_OK) {
             try {
-                filepath = data.getData();
-                final InputStream imageStream = getContentResolver().openInputStream(filepath);
+//                filepath = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(data.getData());
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                img.getLayoutParams().width = 700;
-                img.getLayoutParams().height = 700;
-                img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                img.setImageBitmap(selectedImage);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                selectedImage.compress(Bitmap.CompressFormat.JPEG,70,bytes);
+                finalFile = FileUtil.from(this, data.getData());
+
+                    img.getLayoutParams().width = 700;
+                    img.getLayoutParams().height = 700;
+                    img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    img.setImageBitmap(selectedImage);
+//                }
+
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(Post.this, "Something went wrong", Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
         }else {
             Toast.makeText(Post.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
     }
+
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == RESULT_OK) {
+//            InputStream imageStream = null;
+//            try {
+//                imageStream = getContentResolver().openInputStream(data.getData());
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+//            Uri fileuri = data.getData();
+//
+////            Log.e("fileuri",fileuri.toString());
+//            // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+////            Uri tempUri = getImageUri(getApplicationContext(), selectedImage);
+//
+//            // CALL THIS METHOD TO GET THE ACTUAL PATH
+//            finalFile = new File(getRealPathFromURI(fileuri));
+//
+////            System.out.println(mImageCaptureUri);
+//
+//
+//            img.getLayoutParams().width = 700;
+//            img.getLayoutParams().height = 700;
+//            img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+//            img.setImageBitmap(selectedImage);
+//
+//
+//        }
+//    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
+
+
 
     //update post data
     public void InsertUpdateDB(final PostObj postObj , final boolean update) {

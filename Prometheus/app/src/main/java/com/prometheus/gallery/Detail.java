@@ -99,8 +99,8 @@ public class Detail extends AppCompatActivity {
 
                     Picasso.get()
                             .load(imgurl)
-                            .placeholder(R.mipmap.ic_launcher)
-                            .error(R.mipmap.ic_launcher)
+                            .placeholder(R.drawable.ic_more_horiz_24dp)
+                            .error(R.drawable.ic_image_24dp)
                             .into(img);
 
                     title.setText(ds.child("title").getValue() + "");
@@ -147,7 +147,7 @@ public class Detail extends AppCompatActivity {
                         loveobj.setUserid(userid);
 
                         InsertUpdateDB(loveobj,false);
-                        lovecount.setText(Integer.parseInt(lovecount.getText()+"")+1);
+                        lovecount.setText(Integer.toString(Integer.parseInt(lovecount.getText().toString())+1));
 
                     } else if (love.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.love).getConstantState()) {
 //                    Picasso.get()
@@ -156,7 +156,7 @@ public class Detail extends AppCompatActivity {
 //                            .into(love);
                         love.setImageResource(R.drawable.nolove);
                         DeleteDB(postid,userid);
-                        lovecount.setText(Integer.parseInt(lovecount.getText()+"")-1);
+                        lovecount.setText(Integer.toString(Integer.parseInt(lovecount.getText().toString())-1));
                     }
                 }
                 else{

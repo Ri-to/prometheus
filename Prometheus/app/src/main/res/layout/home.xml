@@ -97,29 +97,33 @@
                     android:orientation="horizontal"
                     tools:ignore="MissingConstraints">
                     <ImageView
+                        android:id="@+id/imgviewed1"
                         android:layout_width="190dp"
                         android:layout_height="190dp"
                         android:layout_margin="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bg_signin"/>
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_image_24dp"/>
                     <ImageView
+                        android:id="@+id/imgviewed2"
                         android:layout_width="190dp"
                         android:layout_height="190dp"
                         android:padding="8dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bg_signin"/>
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_image_24dp"/>
                     <ImageView
+                        android:id="@+id/imgviewed3"
                         android:layout_width="190dp"
                         android:layout_height="190dp"
                         android:layout_margin="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bg_signin"/>
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_image_24dp"/>
                     <ImageView
+                        android:id="@+id/imgviewed4"
                         android:layout_width="190dp"
                         android:layout_height="190dp"
                         android:layout_margin="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bg_signin"/>
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_image_24dp"/>
                 </LinearLayout>
             </HorizontalScrollView>
             <LinearLayout
