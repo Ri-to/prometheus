@@ -24,6 +24,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Collections;
 
 public class home extends MainActivity
 {
@@ -32,6 +33,7 @@ public class home extends MainActivity
     private static int NUM_PAGES = 0;
     private static final Integer[] IMAGES= {R.drawable.bg_signin,R.drawable.bg_signin,R.drawable.bg_signin,R.drawable.bg_signin};
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
+    private ArrayList<PostObj> TopLovedPosts = new ArrayList<>();
     private ImageView imageView1;
 
     private ImageView imgloved1;
@@ -134,26 +136,37 @@ public class home extends MainActivity
                 int i = 1;
                 for (final DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    if(i==1){
-                        if(ds.exists()){
-                            Picasso.get().load(ds.child("photoPath").getValue()+"").placeholder(R.drawable.ic_more_horiz_24dp).into(imgloved1);
+                    PostObj post = ds.getValue(PostObj.class);
+                    TopLovedPosts.add(post);
+
+
+
+                    i++;
+
+                }
+
+                java.util.Collections.reverse(TopLovedPosts);
+                for (int postcount=0;postcount<TopLovedPosts.size();postcount++){
+                    if(postcount==0){
+                            final PostObj post = TopLovedPosts.get(0);
+                            Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved1);
                             imgloved1.setOnClickListener(new View.OnClickListener() {
-                                 @Override
-                                 public void onClick(View view) {
+                                @Override
+                                public void onClick(View view) {
 
-                                     view.startAnimation(((MyApplication) getApplication()).buttonClick);
-                                     ((MyApplication)getApplication()).setComefromhomedetail("home");
-                                     Intent idetail = new Intent(home.this,Detail.class);
-                                     idetail.putExtra("postid",ds.child("id").getValue()+"");
-                                     startActivity(idetail);
-                                 }
-                             });
+                                    view.startAnimation(((MyApplication) getApplication()).buttonClick);
+                                    ((MyApplication)getApplication()).setComefromhomedetail("home");
+                                    Intent idetail = new Intent(home.this,Detail.class);
+                                    idetail.putExtra("postid",post.getId());
+                                    startActivity(idetail);
+                                }
+                            });
 
-                        }
+
                     }
-                    else if(i==2){
-                        if(ds.exists()){
-                            Picasso.get().load(ds.child("photoPath").getValue()+"").placeholder(R.drawable.ic_more_horiz_24dp).into(imgloved2);
+                    if(postcount==1){
+                        final PostObj post = TopLovedPosts.get(1);
+                            Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved2);
                             imgloved2.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -161,15 +174,15 @@ public class home extends MainActivity
                                     view.startAnimation(((MyApplication) getApplication()).buttonClick);
                                     ((MyApplication)getApplication()).setComefromhomedetail("home");
                                     Intent idetail = new Intent(home.this,Detail.class);
-                                    idetail.putExtra("postid",ds.child("id").getValue()+"");
+                                    idetail.putExtra("postid",post.getId());
                                     startActivity(idetail);
                                 }
                             });
-                        }
+
                     }
-                    else if(i==3){
-                        if(ds.exists()){
-                            Picasso.get().load(ds.child("photoPath").getValue()+"").placeholder(R.drawable.ic_more_horiz_24dp).into(imgloved3);
+                    if(postcount==2){
+                        final PostObj post = TopLovedPosts.get(2);
+                            Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved3);
                             imgloved3.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -177,15 +190,15 @@ public class home extends MainActivity
                                     view.startAnimation(((MyApplication) getApplication()).buttonClick);
                                     ((MyApplication)getApplication()).setComefromhomedetail("home");
                                     Intent idetail = new Intent(home.this,Detail.class);
-                                    idetail.putExtra("postid",ds.child("id").getValue()+"");
+                                    idetail.putExtra("postid",post.getId());
                                     startActivity(idetail);
                                 }
                             });
-                        }
+
                     }
-                    else{
-                        if(ds.exists()){
-                            Picasso.get().load(ds.child("photoPath").getValue()+"").placeholder(R.drawable.ic_more_horiz_24dp).into(imgloved4);
+                    if(postcount==3){
+                        final PostObj post = TopLovedPosts.get(3);
+                            Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved4);
                             imgloved4.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -193,15 +206,12 @@ public class home extends MainActivity
                                     view.startAnimation(((MyApplication) getApplication()).buttonClick);
                                     ((MyApplication)getApplication()).setComefromhomedetail("home");
                                     Intent idetail = new Intent(home.this,Detail.class);
-                                    idetail.putExtra("postid",ds.child("id").getValue()+"");
+                                    idetail.putExtra("postid",post.getId());
                                     startActivity(idetail);
                                 }
                             });
-                        }
+
                     }
-
-                    i++;
-
                 }
 
             }
