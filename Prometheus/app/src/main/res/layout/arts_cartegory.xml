@@ -21,36 +21,49 @@
     <TextView
         android:id="@+id/txt1"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
-        <ImageView
-            android:id="@+id/img1"
-            android:layout_width="fill_parent"
-            android:layout_height="200dp"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_signin"
-            app:layout_constraintTop_toBottomOf="@+id/txt1"
-            tools:ignore="MissingConstraints" />
+        <!--<ImageView-->
+            <!--android:id="@+id/img1"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="200dp"-->
+            <!--android:padding="5dp"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/bg_signin"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/txt1"-->
+            <!--tools:ignore="MissingConstraints" />-->
+    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+        android:id="@+id/img1"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_margin="7dp"
+        app:siShape="@drawable/ggwp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/painting"
+        app:layout_constraintTop_toBottomOf="@+id/txt1"
+        tools:ignore="MissingConstraints" />
     <TextView
         android:id="@+id/txt2"
         android:layout_width="match_parent"
         android:layout_height="20dp"
+        android:textColor="#ff8c00"
         app:layout_constraintTop_toBottomOf="@+id/img1"
+        android:gravity="center"
+        android:text="_______________________________"
         tools:ignore="MissingConstraints" />
-        <ImageView
-            android:id="@+id/img2"
-            android:layout_width="fill_parent"
-            android:layout_height="200dp"
-            android:layout_margin="5dp"
-            android:src="@drawable/bg_signin"
-            android:scaleType="centerCrop"
-            android:padding="5dp"
-            app:layout_constraintTop_toBottomOf="@id/txt2"
-            tools:ignore="MissingConstraints" />
+    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+        android:id="@+id/img2"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_margin="7dp"
+        app:siShape="@drawable/ggwp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/photo_category"
+        app:layout_constraintTop_toBottomOf="@+id/txt2"
+        tools:ignore="MissingConstraints" />
 <!--</android.support.constraint.motion.MotionLayout>-->
 </android.support.constraint.ConstraintLayout>

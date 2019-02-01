@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 public class sub_art1 extends MainActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,10 +24,20 @@ public class sub_art1 extends MainActivity {
 
             }
         });
+        ScrollView v=findViewById(R.id.sv1);
+        final ImageView img_ani=(ImageView)findViewById(R.id.img1);
+        startBottomToTopAnimation(v);
+        animationstart(img_ani);
     }
     @Override
     protected void onResume() {
         super.onResume();
         setSelected(R.id.navigation_category);
+    }
+    private void startBottomToTopAnimation(View view) {
+        view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.animation_arts));
+    }
+    private void animationstart(View view){
+        view.startAnimation(AnimationUtils.loadAnimation(this,R.anim.animation_artsmain1));
     }
 }
