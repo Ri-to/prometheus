@@ -1,6 +1,7 @@
 package com.prometheus.gallery;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import java.util.UUID;
 
 public class Detail extends AppCompatActivity {
 
+    private static final String TAG = "Showing immersive";
     private ImageView logo;
     private ImageView cart;
     private ImageView img;
@@ -35,6 +37,9 @@ public class Detail extends AppCompatActivity {
     private TextView title;
     private TextView price;
     private TextView description;
+    private TextView lovecount;
+    private TextView viewcount;
+    private String imgurl;
 
     private String postid;
     private String userid = "";
@@ -55,6 +60,8 @@ public class Detail extends AppCompatActivity {
         title = findViewById(R.id.title);
         price = findViewById(R.id.price);
         description = findViewById(R.id.description);
+        lovecount = findViewById(R.id.lovecount);
+        viewcount = findViewById(R.id.viewcount);
 
         ((MyApplication)getApplication()).setGobacklogin("");
         ((MyApplication)getApplication()).setPostidforgoback("");
@@ -83,10 +90,15 @@ public class Detail extends AppCompatActivity {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-//                    PostObj postObj = ;
+                    int key = 0;
+                    key = Integer.parseInt(ds.getKey());
+
+                    PostObj postObj = ds.getValue(PostObj.class);
+
+                    imgurl = ds.child("photoPath").getValue() + "";
 
                     Picasso.get()
-                            .load(ds.child("photoPath").getValue() + "")
+                            .load(imgurl)
                             .placeholder(R.mipmap.ic_launcher)
                             .error(R.mipmap.ic_launcher)
                             .into(img);
@@ -94,7 +106,13 @@ public class Detail extends AppCompatActivity {
                     title.setText(ds.child("title").getValue() + "");
                     price.setText(ds.child("price").getValue() + " MMKS");
                     description.setText(ds.child("description").getValue() + "");
+                    lovecount.setText(ds.child("loveCount").getValue() + "");
+                    viewcount.setText(ds.child("viewCount").getValue() + "");
 
+                    int viewCount = Integer.parseInt(ds.child("viewCount").getValue() + "") + 1;
+                    postObj.setViewCount(viewCount);
+
+                    mDatabase.child(key+"").setValue(postObj);
                 }
 
             }
@@ -106,6 +124,15 @@ public class Detail extends AppCompatActivity {
             }
 
         });
+
+        img.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+                Intent i = new Intent(Detail.this,Full_Img_View.class);
+                i.putExtra("Imgurl",imgurl);
+                startActivity(i);
+           }
+       });
 
         love.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +147,7 @@ public class Detail extends AppCompatActivity {
                         loveobj.setUserid(userid);
 
                         InsertUpdateDB(loveobj,false);
+                        lovecount.setText(Integer.parseInt(lovecount.getText()+"")+1);
 
                     } else if (love.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.love).getConstantState()) {
 //                    Picasso.get()
@@ -128,6 +156,7 @@ public class Detail extends AppCompatActivity {
 //                            .into(love);
                         love.setImageResource(R.drawable.nolove);
                         DeleteDB(postid,userid);
+                        lovecount.setText(Integer.parseInt(lovecount.getText()+"")-1);
                     }
                 }
                 else{
@@ -141,6 +170,49 @@ public class Detail extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void fullScreen() {
+
+        // BEGIN_INCLUDE (get_current_ui_flags)
+        // The UI options currently enabled are represented by a bitfield.
+        // getSystemUiVisibility() gives us that bitfield.
+        int uiOptions = getWindow().getDecorView().getSystemUiVisibility();
+        int newUiOptions = uiOptions;
+        // END_INCLUDE (get_current_ui_flags)
+        // BEGIN_INCLUDE (toggle_ui_flags)
+        boolean isImmersiveModeEnabled =
+                ((uiOptions | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) == uiOptions);
+        if (isImmersiveModeEnabled) {
+            Log.i(TAG, "Turning immersive mode mode off. ");
+        } else {
+            Log.i(TAG, "Turning immersive mode mode on.");
+        }
+
+        // Navigation bar hiding:  Backwards compatible to ICS.
+        if (Build.VERSION.SDK_INT >= 14) {
+            newUiOptions ^= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        }
+
+        // Status bar hiding: Backwards compatible to Jellybean
+        if (Build.VERSION.SDK_INT >= 16) {
+            newUiOptions ^= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        }
+
+        // Immersive mode: Backward compatible to KitKat.
+        // Note that this flag doesn't do anything by itself, it only augments the behavior
+        // of HIDE_NAVIGATION and FLAG_FULLSCREEN.  For the purposes of this sample
+        // all three flags are being toggled together.
+        // Note that there are two immersive mode UI flags, one of which is referred to as "sticky".
+        // Sticky immersive mode differs in that it makes the navigation and status bars
+        // semi-transparent, and the UI flag does not get cleared when the user interacts with
+        // the screen.
+        if (Build.VERSION.SDK_INT >= 18) {
+            newUiOptions ^= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        }
+
+        getWindow().getDecorView().setSystemUiVisibility(newUiOptions);
+        //END_INCLUDE (set_ui_flags)
     }
 
 
