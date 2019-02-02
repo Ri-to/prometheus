@@ -91,6 +91,8 @@ public class Post extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
 
+    private PostObj postobj;
+
 //    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
     private class NumericKeyBoardTransformationMethod extends PasswordTransformationMethod {
@@ -142,7 +144,7 @@ public class Post extends AppCompatActivity {
         paintingslist.add("Prints");
         paintingslist.add("Textiles");
         paintingslist.add("Watercolours");
-        paintingslist.add("Nude");
+//        paintingslist.add("Nude");
 
         final ArrayList<String> photographylist = new ArrayList<>();
         photographylist.add("Choose Category");
@@ -439,7 +441,7 @@ public class Post extends AppCompatActivity {
                         filepathonline = task.getResult();
 //                        Log.e("filepathonline",filepathonline+ "");
 
-                        PostObj postobj = new PostObj();
+                        postobj = new PostObj();
                         postobj.setId(UUID.randomUUID().toString());
                         postobj.setCategory(category_spinner.getSelectedItem().toString());
                         postobj.setTitle(title.getText().toString());
@@ -464,9 +466,7 @@ public class Post extends AppCompatActivity {
 
                         progressDialog.dismiss();
 
-                        Intent intent = new Intent(Post.this, Detail.class);
-                        intent.putExtra("postid", postobj.getId());
-                        startActivity(intent);
+
 
 
                     } else {
@@ -518,24 +518,6 @@ public class Post extends AppCompatActivity {
         }
     }
 
-
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-
-    public String getRealPathFromURI(Uri uri) {
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-        return cursor.getString(idx);
-    }
-
-
-
-
     //update post data
     public void InsertUpdateDB(final PostObj postObj , final boolean update) {
 
@@ -557,14 +539,13 @@ public class Post extends AppCompatActivity {
                         if(!update){
                             key = key + 1;
                         }
-
-
-
-
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                         databaseReference.child("Post").child((key) + "").setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                Intent intent = new Intent(Post.this, Detail.class);
+                                intent.putExtra("postid", postobj.getId());
+                                startActivity(intent);
                                 Log.e("DB_Commit", "Success!");
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -582,6 +563,9 @@ public class Post extends AppCompatActivity {
                     databaseReference.child("Post").child("1").setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            Intent intent = new Intent(Post.this, Detail.class);
+                            intent.putExtra("postid", postobj.getId());
+                            startActivity(intent);
                             Log.e("DB_Commit", "Success!");
                         }
                     }).addOnFailureListener(new OnFailureListener() {
