@@ -58,7 +58,7 @@
                     android:padding="3dp"
                     android:textSize="15sp"/>
                 <TextView
-                    android:text="2 Feb,2019"
+                    android:text="3 Feb,2019"
                     android:padding="3dp"
                     android:textSize="15sp"
                     android:gravity="end"
@@ -71,7 +71,7 @@
                     android:textSize="15sp"/>
 
                 <TextView
-                    android:text="9:00 AM"
+                    android:text="9:00 AM to 12:00 PM"
                     android:padding="3dp"
                     android:textSize="15sp"
                     android:gravity="end"
@@ -83,7 +83,7 @@
                     android:textSize="15sp"
                     android:padding="3dp"/>
                 <TextView
-                    android:text="Insein"
+                    android:text="Shwe Ingyin"
                     android:padding="3dp"
                     android:textSize="15sp"
                     android:gravity="end"
@@ -96,6 +96,12 @@
             android:text="Description"
             android:layout_marginLeft="5dp"
             android:textSize="20sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This is the biggest event ever in local. Most famous artist and their greatest arts will be here."
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp"/>
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"

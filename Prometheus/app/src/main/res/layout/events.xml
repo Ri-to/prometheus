@@ -27,7 +27,7 @@
             android:layout_height="200dp"
             app:siShape="@drawable/ggwp"
             android:scaleType="centerCrop"
-            android:src="@drawable/bg_signin"
+            android:src="@drawable/event1"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
         <TextView
@@ -57,11 +57,11 @@
             app:layout_constraintStart_toStartOf="parent">
             <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
                 android:id="@+id/img2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:siShape="@drawable/ggwp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/bg_signin"
+                android:src="@drawable/event2"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
             <TextView

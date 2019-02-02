@@ -10,22 +10,20 @@
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_margin="4dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/white">
+        app:cardBackgroundColor="#fcfffe">
 
-
-        <ImageView
+        <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerInside"
             app:srcCompat="@drawable/ic_image_24dp"
-            android:background="@color/white"/>
+            app:siShape="@drawable/ggwp"
+            android:scaleType="centerCrop" />
 
     </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

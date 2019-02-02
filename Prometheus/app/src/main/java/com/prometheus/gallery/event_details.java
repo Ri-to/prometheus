@@ -16,7 +16,7 @@ public class event_details extends MainActivity {
     private static ViewPager mPager;
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
-    private static final Integer[] IMAGES= {R.drawable.bg_signin,R.drawable.bg_signin,R.drawable.bg_signin,R.drawable.bg_signin};
+    private static final Integer[] IMAGES= {R.drawable.event1,R.drawable.event2,R.drawable.event3,R.drawable.event4};
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
