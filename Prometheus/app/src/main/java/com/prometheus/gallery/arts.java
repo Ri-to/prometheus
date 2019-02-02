@@ -1,5 +1,7 @@
 package com.prometheus.gallery;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -51,4 +53,31 @@ public class arts extends MainActivity {
         super.onResume();
         setSelected(R.id.navigation_category);
     }
+
+    @Override
+    public void onBackPressed() {
+        // Do nothing
+//        finish();
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Closing Application")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        finishAffinity();
+//                        finish();
+//                        System.exit(0);
+                        Intent a = new Intent(Intent.ACTION_MAIN);
+                        a.addCategory(Intent.CATEGORY_HOME);
+                        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        arts.this.startActivity(a);
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
 }

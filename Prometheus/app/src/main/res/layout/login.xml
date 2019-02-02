@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/btn_login"
                     android:layout_centerHorizontal="true"
-                    android:text="Dont have an account?"
+                    android:text="Dont have an account? Register"
                     android:textSize="15dp" />
 
             </RelativeLayout>
