@@ -100,19 +100,11 @@ public class Post extends AppCompatActivity {
         }
     }
 
-//    MyApplication globalvariable = (MyApplication) getApplication();
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 //        setTheme(R.style.NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post);
-
-//        Picasso.get()
-//                .load(R.drawable.background_register)
-//                .resize(1440,2560 )
-//                .onlyScaleDown()
-//                .into((ImageView) findViewById(R.id.background_register));
 
         background_register = findViewById(R.id.background_register);
 
@@ -160,7 +152,7 @@ public class Post extends AppCompatActivity {
         photographylist.add("Religious");
         photographylist.add("Wildlife");
         photographylist.add("Photojournalist");
-        photographylist.add("Nude");
+//        photographylist.add("Nude");
 
         final ArrayList<String> framesizelist = new ArrayList<>();
         framesizelist.add("Choose Frame Size");
@@ -383,16 +375,13 @@ public class Post extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
     private void uploadImage() throws IOException {
         if(finalFile!=null){
             compressedfile = new Compressor(this)
                     .setMaxWidth(700)
-                    .setQuality(75)
+                    .setQuality(50)
                     .setCompressFormat(Bitmap.CompressFormat.JPEG)
                     .compressToFile(finalFile);
 //        }
@@ -529,36 +518,6 @@ public class Post extends AppCompatActivity {
         }
     }
 
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK) {
-//            InputStream imageStream = null;
-//            try {
-//                imageStream = getContentResolver().openInputStream(data.getData());
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-//            Uri fileuri = data.getData();
-//
-////            Log.e("fileuri",fileuri.toString());
-//            // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
-////            Uri tempUri = getImageUri(getApplicationContext(), selectedImage);
-//
-//            // CALL THIS METHOD TO GET THE ACTUAL PATH
-//            finalFile = new File(getRealPathFromURI(fileuri));
-//
-////            System.out.println(mImageCaptureUri);
-//
-//
-//            img.getLayoutParams().width = 700;
-//            img.getLayoutParams().height = 700;
-//            img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-//            img.setImageBitmap(selectedImage);
-//
-//
-//        }
-//    }
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -592,16 +551,11 @@ public class Post extends AppCompatActivity {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                         int key = 0;
-//                    String obj_key = "";
-//                    String new_key = "";
 
                         key = Integer.parseInt(ds.getKey());
 
                         if(!update){
-//                        obj_key = ds.child("id").getValue() + "";
-//                        new_key = Util.AutoID(obj_key);
                             key = key + 1;
-//                        townshipObj.setId(new_key);
                         }
 
 

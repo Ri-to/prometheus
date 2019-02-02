@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
@@ -15,10 +17,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <TextView
             android:layout_width="300dp"
             android:layout_height="30dp"
@@ -26,29 +24,144 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:textAlignment="center"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="50dp"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"/>
 
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:text="We are a one of a kind platform offering art, paintings and photography from creative artists all around the world"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="170dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:text="There will be a little bit of transation fees and $1.99 for the deposit fees. After that all the posting will be free.
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ic_check_circle_white_24dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:text="We are a one of a kind platform offering art, paintings and photography from creative artists all around the world"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ic_check_circle_white_24dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:text="Join our marketplace to show your creative artwork
+to the millions of buyers around the world."/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ic_check_circle_white_24dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:text="The post will be last for 3 months and after that the post
+will be deleted."/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ic_check_circle_white_24dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:text="Our services make your business easy to manage, sell and
+grow."/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ic_check_circle_white_24dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:text="There will be a little bit of transation fees and $1.99 for the deposit fees. After that all the posting will be free.
 We add 5% of the selling price for the transation fees.
 
-If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us."
-            android:textAlignment="viewStart"
+If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us."/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            android:text="If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us."
             android:gravity="start" />
-
-
 
         <CheckBox
             android:id="@+id/agree"

@@ -1,5 +1,7 @@
 package com.prometheus.gallery;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.prometheus.gallery.adapter.SlidingImage_Adapter;
+import com.prometheus.gallery.obj.PostObj;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -135,7 +138,7 @@ public class home extends MainActivity
 
 
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Post");
-        Query lovequery = databaseReference.orderByChild("loveCount").limitToFirst(4);
+        Query lovequery = databaseReference.orderByChild("loveCount").limitToLast(4);
         lovequery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -150,6 +153,7 @@ public class home extends MainActivity
                     if(postcount==0){
                         final PostObj post = TopLovedPosts.get(0);
                         Picasso.get().load(post.getPhotoPath()).placeholder(R.drawable.ic_more_horiz_24dp).error(R.drawable.ic_image_24dp).into(imgloved1);
+                        Picasso.get().setLoggingEnabled(true);
                         imgloved1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -230,7 +234,7 @@ public class home extends MainActivity
     public void fetchTopViewPost(){
 
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Post");
-        Query viewquery = databaseReference.orderByChild("viewCount").limitToFirst(4);
+        Query viewquery = databaseReference.orderByChild("viewCount").limitToLast(4);
         viewquery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -318,4 +322,31 @@ public class home extends MainActivity
 
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        // Do nothing
+//        finish();
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Closing Application")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        finishAffinity();
+//                        finish();
+//                        System.exit(0);
+                        Intent a = new Intent(Intent.ACTION_MAIN);
+                        a.addCategory(Intent.CATEGORY_HOME);
+                        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        home.this.startActivity(a);
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
 }

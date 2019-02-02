@@ -30,10 +30,11 @@ public class Detail extends AppCompatActivity {
 
     private static final String TAG = "Showing immersive";
     private ImageView logo;
-    private ImageView cart;
+//    private ImageView cart;
     private ImageView img;
     private ImageView love;
     private ImageView share;
+    private TextView kalaungname;
     private TextView title;
     private TextView price;
     private TextView description;
@@ -53,10 +54,11 @@ public class Detail extends AppCompatActivity {
             setContentView(R.layout.detail);
 
         logo = findViewById(R.id.logo);
-        cart = findViewById(R.id.cart);
+//        cart = findViewById(R.id.cart);
         img = findViewById(R.id.img);
         love = findViewById(R.id.love);
         share = findViewById(R.id.share);
+        kalaungname = findViewById(R.id.kalaungname);
         title = findViewById(R.id.title);
         price = findViewById(R.id.price);
         description = findViewById(R.id.description);
@@ -102,6 +104,31 @@ public class Detail extends AppCompatActivity {
                             .placeholder(R.drawable.ic_more_horiz_24dp)
                             .error(R.drawable.ic_image_24dp)
                             .into(img);
+
+                    DatabaseReference userref = FirebaseDatabase.getInstance().getReference();
+                    Query userquery = userref.child("User").orderByChild("id").equalTo(ds.child("createdBy").getValue()+"");
+                    userquery.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (!dataSnapshot.exists()) {
+                                Toast.makeText(Detail.this, "There is no user.", Toast.LENGTH_SHORT).show();
+//                    DismissDialog();
+                                return;
+                            }
+                            else{
+                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                                    kalaungname.setText(ds.child("fname").getValue()+" "+ds.child("lname").getValue());
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
                     title.setText(ds.child("title").getValue() + "");
                     price.setText(ds.child("price").getValue() + " MMKS");
