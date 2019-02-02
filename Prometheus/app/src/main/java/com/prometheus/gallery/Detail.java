@@ -131,7 +131,8 @@ public class Detail extends AppCompatActivity {
                     });
 
                     title.setText(ds.child("title").getValue() + "");
-                    price.setText(ds.child("price").getValue() + " MMKS");
+                    double finalprice = Double.parseDouble(ds.child("price").getValue()+"") + (Double.parseDouble(ds.child("price").getValue()+"")*5)/100;
+                    price.setText(finalprice + " MMKS");
                     description.setText(ds.child("description").getValue() + "");
                     lovecount.setText(ds.child("loveCount").getValue() + "");
                     viewcount.setText(ds.child("viewCount").getValue() + "");
