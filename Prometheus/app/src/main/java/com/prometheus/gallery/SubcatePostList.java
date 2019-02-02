@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +27,7 @@ public class SubcatePostList extends AppCompatActivity {
     private PostGridAdapter postGridAdapter;
     private RecyclerView postlist;
     private String subCate;
+    private TextView subcatetext;
 
     private ArrayList<PostObj> postObjs = new ArrayList<>();
 
@@ -39,6 +41,9 @@ public class SubcatePostList extends AppCompatActivity {
 
         subCate = getIntent().getStringExtra("SubCate");
 //        Log.e("SubCate",subCate);
+
+        subcatetext = findViewById(R.id.subcatetext);
+        subcatetext.setText(subCate);
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         Query query = mDatabase.child("Post").orderByChild("category").equalTo(subCate);
