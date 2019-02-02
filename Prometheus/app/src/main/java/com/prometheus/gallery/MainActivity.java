@@ -142,13 +142,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.action_search:
-                goToPage("search");
-                return true;
-            case R.id.action_cart:
-                goToPage("cart");
-
-                return true;
+//            case R.id.action_search:
+//                goToPage("search");
+//                return true;
+//            case R.id.action_cart:
+//                goToPage("cart");
+//
+//                return true;
             case R.id.action_profile:
                 goToPage("profile");
                 return true;

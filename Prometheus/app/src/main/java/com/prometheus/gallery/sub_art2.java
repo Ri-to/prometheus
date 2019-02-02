@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -13,7 +14,7 @@ public class sub_art2 extends MainActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentLayout(R.layout.arts_subcategory2);
-        ImageView img2=(ImageView)findViewById(R.id.img1);
+        ImageView img2=(ImageView)findViewById(R.id.img2);
         img2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -24,7 +25,7 @@ public class sub_art2 extends MainActivity {
             }
         });
         ScrollView v=findViewById(R.id.sv1);
-        final ImageView img_ani=(ImageView)findViewById(R.id.img1);
+        final ImageView img_ani=(ImageView)findViewById(R.id.img2);
         startBottomToTopAnimation(v);
         animationstart(img_ani);
     }

@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +32,6 @@
             android:text="Super Cool Art Event"
             android:gravity="center"
             android:textStyle="bold"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,14 +40,12 @@
             android:layout_marginRight="80dp"
             android:textStyle="bold"
             android:textColor="#FF8C00"/>
-
         <View
             android:layout_width="300dp"
             android:layout_height="2dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:background="#000000" />
-
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,7 +64,6 @@
                     android:gravity="end"
                     android:id="@+id/date"/>
             </TableRow>
-
             <TableRow>
                 <TextView
                     android:text="Time"
@@ -82,13 +77,11 @@
                     android:gravity="end"
                     android:id="@+id/time"/>
             </TableRow>
-
             <TableRow>
                 <TextView
                     android:text="Place"
                     android:textSize="15sp"
                     android:padding="3dp"/>
-
                 <TextView
                     android:text="Insein"
                     android:padding="3dp"
@@ -110,9 +103,5 @@
             android:adjustViewBounds="true"
             android:layout_gravity="center"
             android:src="@drawable/facebook"/>
-
     </LinearLayout>
-
-
-
 </android.support.constraint.ConstraintLayout>

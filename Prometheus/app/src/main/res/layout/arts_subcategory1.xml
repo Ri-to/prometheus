@@ -1,123 +1,318 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".arts"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".sub_art1">
+
     <ImageView
         android:id="@+id/img1"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/painting"/>
+        android:src="@drawable/painting" />
+
     <ScrollView
         android:id="@+id/sv1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_below="@+id/img1"
+        android:orientation="vertical"
         android:scrollbars="none">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <!--<TextView-->
-                <!--android:id="@+id/txt"-->
-                <!--android:layout_width="2dp"-->
-                <!--android:layout_height="10dp" />-->
-                <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
-                    android:id="@+id/subimg1"
-                    android:layout_width="170dp"
-                    android:layout_height="160dp"
-                    android:layout_margin="5dp"
-                    app:siShape="@drawable/ggwp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bg_signin"
-                    tools:ignore="MissingConstraints" />
-    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
-        android:id="@+id/subimg2"
-        android:layout_width="170dp"
-        android:layout_height="160dp"
-        android:layout_margin="5dp"
-        app:siShape="@drawable/ggwp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_signin" />
-            </LinearLayout>
-        <LinearLayout
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
-        android:id="@+id/subimg3"
-        android:layout_width="170dp"
-        android:layout_height="160dp"
-        android:layout_margin="5dp"
-        app:siShape="@drawable/ggwp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_signin" />
-    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
-        android:id="@+id/subimg5"
-        android:layout_width="170dp"
-        android:layout_height="160dp"
-        android:layout_margin="5dp"
-        app:siShape="@drawable/ggwp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_signin" />
-        </LinearLayout>
-            <LinearLayout
+            android:layout_below="@+id/img1"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txtspace1"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                tools:ignore="MissingConstraints" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/drawing"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#fcfffe"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/txtspace1"
+                tools:ignore="MissingConstraints">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraint2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="160dp"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+                        android:id="@+id/subimg1"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/drawing1"
+                        app:siShape="@drawable/ggwp"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/roundedbackground"
+                        android:gravity="right"
+                        android:text="Drawings "
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/subimg1"
+                        app:layout_constraintRight_toRightOf="@id/subimg1" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/digital"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
-                    android:id="@+id/subimg6"
-                    android:layout_width="170dp"
-                    android:layout_height="160dp"
-                    android:layout_margin="5dp"
-                    app:siShape="@drawable/ggwp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bg_signin" />
-                <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
-                    android:id="@+id/subimg4"
-                    android:layout_width="170dp"
-                    android:layout_height="160dp"
-                    android:layout_margin="5dp"
-                    app:siShape="@drawable/ggwp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bg_signin" />
-            </LinearLayout>
-            <LinearLayout
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#fcfffe"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/txtspace1"
+                app:layout_constraintLeft_toRightOf="@id/drawing"
+                tools:ignore="MissingConstraints">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraint3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+                        android:id="@+id/subimg2"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/digital_art2"
+                        app:siShape="@drawable/ggwp"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/roundedbackground"
+                        android:gravity="right"
+                        android:text="Digital Arts "
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/subimg2"
+                        app:layout_constraintRight_toRightOf="@id/subimg2" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/mix"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
-                    android:id="@+id/subimg7"
-                    android:layout_width="170dp"
-                    android:layout_height="160dp"
-                    app:siShape="@drawable/ggwp"
-                    android:layout_margin="5dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bg_signin" />
-                <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
-                    android:id="@+id/subimg8"
-                    android:layout_width="170dp"
-                    android:layout_height="160dp"
-                    android:layout_margin="5dp"
-                    android:scaleType="centerCrop"
-                    app:siShape="@drawable/ggwp"
-                    android:src="@drawable/bg_signin" />
-            </LinearLayout>
-            <LinearLayout
+                android:layout_margin="5dp"
+                android:layout_marginTop="4dp"
+                app:cardBackgroundColor="#fcfffe"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintRight_toLeftOf="@id/painting"
+                app:layout_constraintTop_toBottomOf="@id/drawing">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraint4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+                        android:id="@+id/subimg3"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/mix1"
+                        app:siShape="@drawable/ggwp"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/roundedbackground"
+                        android:gravity="right"
+                        android:text="Mixed Media "
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/subimg3"
+                        app:layout_constraintRight_toRightOf="@id/subimg3" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/painting"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:orientation="horizontal">
-            </LinearLayout>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#fcfffe"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintLeft_toRightOf="@id/mix"
+                app:layout_constraintTop_toBottomOf="@id/digital"
+                tools:ignore="MissingConstraints">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraint5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+                        android:id="@+id/subimg4"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/paint1"
+                        app:siShape="@drawable/ggwp"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/roundedbackground"
+                        android:gravity="right"
+                        android:text="Painting "
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/subimg4"
+                        app:layout_constraintRight_toRightOf="@id/subimg4" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/textile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#fcfffe"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintRight_toLeftOf="@id/prints"
+                app:layout_constraintTop_toBottomOf="@id/mix">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraint6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+                        android:id="@+id/subimg5"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/print1"
+                        app:siShape="@drawable/ggwp"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/roundedbackground"
+                        android:gravity="right"
+                        android:text="Prints "
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/subimg5"
+                        app:layout_constraintRight_toRightOf="@id/subimg5" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/prints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#fcfffe"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintRight_toLeftOf="@id/textile"
+                app:layout_constraintTop_toBottomOf="@id/painting"
+                tools:ignore="MissingConstraints">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraint7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+                        android:id="@+id/subimg6"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/textile1"
+                        app:siShape="@drawable/ggwp"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/roundedbackground"
+                        android:gravity="right"
+                        android:text="Textiles "
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/subimg6"
+                        app:layout_constraintRight_toRightOf="@id/subimg6" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/watercolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="#fcfffe"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintRight_toLeftOf="@id/prints"
+                app:layout_constraintTop_toBottomOf="@id/textile">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraint8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+                        android:id="@+id/subimg7"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/watercolor1"
+                        app:siShape="@drawable/ggwp"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/roundedbackground"
+                        android:gravity="right"
+                        android:text="WaterColours "
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/subimg7"
+                        app:layout_constraintRight_toRightOf="@id/subimg7" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+        </android.support.constraint.ConstraintLayout>
     </ScrollView>
-</LinearLayout>
+</RelativeLayout>
