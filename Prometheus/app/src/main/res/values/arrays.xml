@@ -1,0 +1,11 @@
+<resources>
+    <string-array name="List">
+        <item>English</item>
+        <item>Myanmar</item>
+    </string-array>
+    <string-array name="values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+</resources>

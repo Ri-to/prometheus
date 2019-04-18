@@ -12,7 +12,7 @@ public class LoadingScreen {private ImageView loading;
     }
 
     public void setLoadScreen(){
-        final Integer[] loadingImages = {R.drawable.logo};
+        final Integer[] loadingImages = {R.drawable.logo_pro};
         final Handler loadingHandler = new Handler();
         Runnable runnable = new Runnable() {
             int loadingImgIndex = 0;

@@ -3,13 +3,16 @@ package com.prometheus.gallery;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +35,8 @@ public class home extends MainActivity
     private static ViewPager mPager;
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
+    private static int delay=3500;
+    private static int period=3500;
     private static final Integer[] IMAGES= {R.drawable.event1,R.drawable.event2,R.drawable.event3,R.drawable.event4};
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
     private ArrayList<PostObj> TopLovedPosts = new ArrayList<>();
@@ -48,7 +53,12 @@ public class home extends MainActivity
     private ImageView imgviewed2;
     private ImageView imgviewed3;
     private ImageView imgviewed4;
+    Timer swipeTimer = new Timer();
 
+    private TextView title;
+    private TextView  vtitle;
+    private SharedPreferences sharedPreferences;
+    private String s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        LoadingScreen loadingscreen = new LoadingScreen(loadingImage);
@@ -70,20 +80,82 @@ public class home extends MainActivity
 
         fetchTopLovePost();
         fetchTopViewPost();
-
         ((MyApplication)getApplication()).setComefromhomedetail("");
+
+        title=findViewById(R.id.lovetitle);
+        vtitle=findViewById(R.id.viewtitle);
+        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        s=sharedPreferences.getString("sub","English").toString();
+        Log.e("ggwp",s);
+        if(s=="English"){
+            title.setText("Top Loved Art");
+            vtitle.setText("Top Viewed Art");
+        }
+        else{
+        if(Integer.parseInt(s)==2){
+                title.setText("လူကြိုက်အများဆုံးလက်ရာများ");
+                vtitle.setText("လူကြည့်အများဆုံးလက်ရာများ");
+            }
+            else {
+                title.setText("Top Loved Art");
+                vtitle.setText("Top Viewed Art");
+            }
+        }
+//        if (sharedPreferences.getString("sub","Myanmar")==null){
+//            final int s=2;
+//            Log.e("ggwp","Hello");
+//        }
+//        else {
+//           String ss= sharedPreferences.getString("sub","Myanmar");
+//            Log.e("ggwp1",ss);
+//        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setSelected(R.id.navigation_home);
+        title=findViewById(R.id.lovetitle);
+        vtitle=findViewById(R.id.viewtitle);
+        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        s=sharedPreferences.getString("sub","English").toString();
+        Log.e("ggwp",s);
+        if(s=="English"){
+            title.setText("Top Loved Art");
+            vtitle.setText("Top Viewed Art");
+        }
+        else{
+            if(Integer.parseInt(s)==2){
+                title.setText("လူကြိုက်အများဆုံးလက်ရာများ");
+                vtitle.setText("လူကြည့်အများဆုံးလက်ရာများ");
+            }
+            else {
+                title.setText("Top Loved Art");
+                vtitle.setText("Top Viewed Art");
+            }
+        }
+    }
+
+    protected void onStop(){
+        super.onStop();
+        swipeTimer.cancel();
+        delay=3500;
+        period=3500;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        swipeTimer.cancel();
+//        Log.e("abcd","Hello");
     }
 
     private void init() {
+        swipeTimer.purge();
+        delay=3500;
+        period=3500;
         for(int i=0;i<IMAGES.length;i++)
             ImagesArray.add(IMAGES[i]);
-
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(new SlidingImage_Adapter(home.this,ImagesArray));
 
@@ -110,13 +182,13 @@ public class home extends MainActivity
                 mPager.setCurrentItem(currentPage++, true);
             }
         };
-        Timer swipeTimer = new Timer();
+        swipeTimer = new Timer();
         swipeTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 handler.post(Update);
             }
-        }, 3000, 3000);
+        }, delay, period);
         indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
