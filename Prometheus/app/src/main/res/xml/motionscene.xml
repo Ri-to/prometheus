@@ -1,147 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
     <Transition
-        motion:constraintSetStart="@id/start"
         motion:constraintSetEnd="@id/end"
+        motion:constraintSetStart="@id/start"
         motion:duration="1000">
         <OnClick
             app:target="@id/img1"
+            motion:dragDirection="dragUp"
             motion:touchAnchorId="@id/img1"
-            motion:touchAnchorSide="top"
-            motion:dragDirection="dragUp"/>
+            motion:touchAnchorSide="top" />
     </Transition>
     <Transition
-        motion:constraintSetStart="@id/start1"
         motion:constraintSetEnd="@id/end"
+        motion:constraintSetStart="@id/start1"
         motion:duration="1000">
         <OnSwipe
             app:target="@id/img2"
+            motion:dragDirection="dragUp"
             motion:touchAnchorId="@id/img2"
-            motion:touchAnchorSide="top"
-            motion:dragDirection="dragUp"/>
+            motion:touchAnchorSide="top" />
     </Transition>
-    <ConstraintSet android:id="@+id/start"
+    <ConstraintSet
+        android:id="@+id/start"
         android:orientation="vertical">
-    <Constraint android:id="@+id/img1"
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:padding="5dp"
-        android:layout_margin="5dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-        <Constraint android:id="@+id/img2"
+        <Constraint
+            android:id="@+id/img1"
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/img2"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:padding="5dp"
             android:layout_margin="5dp"
+            android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent" />
-        <Constraint android:id="@+id/img3"
+        <Constraint
+            android:id="@+id/img3"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:padding="5dp"
             android:layout_margin="5dp"
+            android:padding="5dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-        <Constraint android:id="@+id/img4"
+            app:layout_constraintBottom_toBottomOf="parent" />
+        <Constraint
+            android:id="@+id/img4"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:padding="5dp"
             android:layout_margin="5dp"
+            android:padding="5dp"
             android:scaleType="centerCrop"
-            app:layout_constraintLeft_toRightOf="@id/img3"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/img3" />
     </ConstraintSet>
     <ConstraintSet android:id="@+id/end">
-    <Constraint android:id="@+id/img1"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:padding="5dp"
-        android:layout_margin="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-        <Constraint android:id="@+id/txt2"
+        <Constraint
+            android:id="@+id/img1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/txt2"
             android:layout_width="fill_parent"
             android:layout_height="10dp"
             app:layout_constraintTop_toBottomOf="@id/img1" />
-        <Constraint android:id="@+id/img2"
+        <Constraint
+            android:id="@+id/img2"
             android:layout_width="100dp"
             android:layout_height="200dp"
-            android:padding="5dp"
             android:layout_margin="5dp"
+            android:padding="5dp"
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toRightOf="@id/img4"
-            app:layout_constraintTop_toBottomOf="@id/txt2"/>
-        <Constraint android:id="@+id/img3"
+            app:layout_constraintTop_toBottomOf="@id/txt2" />
+        <Constraint
+            android:id="@+id/img3"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_margin="5dp"
             android:padding="5dp"
             android:scaleType="centerCrop"
-            android:layout_margin="5dp"
-            app:layout_constraintTop_toBottomOf="@id/txt2"/>
-        <Constraint android:id="@+id/img4"
+            app:layout_constraintTop_toBottomOf="@id/txt2" />
+        <Constraint
+            android:id="@+id/img4"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_margin="5dp"
             android:padding="5dp"
             android:scaleType="centerCrop"
-            android:layout_margin="5dp"
             app:layout_constraintLeft_toRightOf="@id/img3"
             app:layout_constraintTop_toBottomOf="@id/txt2" />
     </ConstraintSet>
 
 
-    <ConstraintSet android:id="@+id/start1"
+    <ConstraintSet
+        android:id="@+id/start1"
         android:orientation="vertical">
-        <Constraint android:id="@+id/img1"
+        <Constraint
+            android:id="@+id/img1"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
-            android:padding="5dp"
             android:layout_margin="5dp"
+            android:padding="5dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-        <Constraint android:id="@+id/img2"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/img2"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:padding="5dp"
             android:layout_margin="5dp"
+            android:padding="5dp"
             app:layout_constraintTop_toBottomOf="@id/img1" />
-        <Constraint android:id="@+id/img3"
+        <Constraint
+            android:id="@+id/img3"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:padding="5dp"
             android:layout_margin="5dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-        <Constraint android:id="@+id/img4"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
             android:padding="5dp"
-            android:layout_margin="5dp"
             android:scaleType="centerCrop"
-            app:layout_constraintLeft_toRightOf="@id/img3"
             app:layout_constraintBottom_toBottomOf="parent" />
+        <Constraint
+            android:id="@+id/img4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/img3" />
     </ConstraintSet>
     <ConstraintSet android:id="@+id/end1">
-        <Constraint android:id="@+id/img3"
+        <Constraint
+            android:id="@+id/img3"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_margin="5dp"
             android:padding="5dp"
             android:scaleType="centerCrop"
-            android:layout_margin="5dp"
-            app:layout_constraintTop_toBottomOf="@id/txt2"/>
-        <Constraint android:id="@+id/img4"
+            app:layout_constraintTop_toBottomOf="@id/txt2" />
+        <Constraint
+            android:id="@+id/img4"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_margin="5dp"
             android:padding="5dp"
             android:scaleType="centerCrop"
-            android:layout_margin="5dp"
             app:layout_constraintTop_toBottomOf="@id/img2" />
     </ConstraintSet>
 

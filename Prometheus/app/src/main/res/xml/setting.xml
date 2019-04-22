@@ -1,0 +1,19 @@
+<?xml version ="1.0" encoding ="utf-8"?><!--  Learn More about how to use App Actions: https://developer.android.com/guide/actions/index.html -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Font Setting">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="zawgyi"
+            android:persistent="true"
+            android:title="Zawgyi" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Language">
+     <ListPreference
+         android:title="Change Language"
+         android:key="@string/language"
+         android:defaultValue="1"
+         android:entries="@array/List"
+         android:entryValues="@array/values"
+         ></ListPreference>
+    </PreferenceCategory>
+</PreferenceScreen>

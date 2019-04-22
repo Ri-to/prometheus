@@ -1,14 +1,19 @@
 package com.prometheus.gallery;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 
@@ -20,14 +25,43 @@ import android.widget.FrameLayout;
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton floatbtn;
+    private SharedPreferences sharedPreferences;
+    private String s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setLogo(R.drawable.logo_pro);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
         setContentView(R.layout.activity_main);
 //        floatbtn = findViewById(R.id.floatbtn);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 //        navigation.setSelectedItemId(R.id.navigation_home);
+
+        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        s=sharedPreferences.getString("sub","English").toString();
+        Log.e("ggwps",s);
+        if(s=="English"){
+            navigation.getMenu().findItem(R.id.navigation_home).setTitle("Home");
+            navigation.getMenu().findItem(R.id.navigation_category ).setTitle("Arts");
+            navigation.getMenu().findItem(R.id.navigation_event).setTitle("Events");
+            navigation.getMenu().findItem(R.id.navigation_setting).setTitle("Setting");
+        }
+        else{
+            if(Integer.parseInt(s)==2){
+                navigation.getMenu().findItem(R.id.navigation_home).setTitle("ပင်မစာမျက်နာ");
+                navigation.getMenu().findItem(R.id.navigation_category).setTitle("လက်ရာများ");
+                navigation.getMenu().findItem(R.id.navigation_event).setTitle("ပြပွဲများ");
+                navigation.getMenu().findItem(R.id.navigation_setting).setTitle("အပြင်အဆင်");
+            }
+            else {
+                navigation.getMenu().findItem(R.id.navigation_home).setTitle("Home");
+                navigation.getMenu().findItem(R.id.navigation_category ).setTitle("Arts");
+                navigation.getMenu().findItem(R.id.navigation_event).setTitle("Events");
+                navigation.getMenu().findItem(R.id.navigation_setting).setTitle("Setting");
+            }
+        }
 
 
         final FloatingActionButton fab = findViewById(R.id.floatbtn);
@@ -106,8 +140,10 @@ public class MainActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.navigation_setting:
-//                    mTextMessage.setText(R.string.title_setting);
-//                    return true;
+                    Intent s = new Intent(MainActivity.this, Setting.class);
+                    startActivity(s);
+                    overridePendingTransition(0, 0);
+                    return true;
             }
 //            transaction.commit();
             return false;
@@ -183,9 +219,32 @@ public class MainActivity extends AppCompatActivity {
 
         super.onResume();
         final FloatingActionButton fab = findViewById(R.id.floatbtn);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        s=sharedPreferences.getString("sub","English").toString();
+        Log.e("ggwps",s);
+        if(s=="English"){
+            navigation.getMenu().findItem(R.id.navigation_home).setTitle("Home");
+            navigation.getMenu().findItem(R.id.navigation_category ).setTitle("Arts");
+            navigation.getMenu().findItem(R.id.navigation_event).setTitle("Events");
+            navigation.getMenu().findItem(R.id.navigation_setting).setTitle("Setting");
+        }
+        else{
+            if(Integer.parseInt(s)==2){
+                navigation.getMenu().findItem(R.id.navigation_home).setTitle("ပင်မစာမျက်နာ");
+                navigation.getMenu().findItem(R.id.navigation_category).setTitle("လက်ရာများ");
+                navigation.getMenu().findItem(R.id.navigation_event).setTitle("ပြပွဲများ");
+                navigation.getMenu().findItem(R.id.navigation_setting).setTitle("အပြင်အဆင်");
+            }
+            else {
+                navigation.getMenu().findItem(R.id.navigation_home).setTitle("Home");
+                navigation.getMenu().findItem(R.id.navigation_category ).setTitle("Arts");
+                navigation.getMenu().findItem(R.id.navigation_event).setTitle("Events");
+                navigation.getMenu().findItem(R.id.navigation_setting).setTitle("Setting");
+            }
+        }
 
         String userType = "NormalUser";
-
         if(((MyApplication)getApplication()).getUserobj()!=null){
             userType = ((MyApplication)getApplication()).getUserobj().getUserType();
             if(userType.equals("Artist")){

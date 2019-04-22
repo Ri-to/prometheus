@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--<item-->
+        <!--android:id="@+id/logo"-->
+        <!--android:icon="@drawable/logo_pro"-->
+        <!--android:title="Prometheus"-->
+        <!--app:showAsAction="ifRoom"-->
+        <!--android:gravity ="start"-->
+        <!--android:theme="@style/align" />-->
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_white_34dp"
         android:title="@string/search"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom">
+    </item>
     <item
         android:id="@+id/action_cart"
         android:icon="@drawable/ic_shopping_cart_white_24dp"

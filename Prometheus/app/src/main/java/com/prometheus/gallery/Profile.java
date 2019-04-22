@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -84,6 +85,7 @@ public class Profile extends AppCompatActivity {
                 view.startAnimation(((MyApplication) getApplication()).buttonClick);
 
                 ((MyApplication) getApplication()).setUserobj(null);
+                LoginManager.getInstance().logOut();
                 Intent intent = new Intent(Profile.this, home.class);
                 startActivity(intent);
             }

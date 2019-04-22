@@ -54,50 +54,62 @@
                     android:id="@+id/love"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="6dp"
                     android:src="@drawable/nolove" />
 
                 <TextView
                     android:id="@+id/lovecount"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_weight="3"
-                    android:textSize="27sp"
+                    android:layout_weight="1"
+                    android:textSize="22sp"
                     android:textColor="#969696"/>
 
                 <ImageView
                     android:id="@+id/view"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="2"
+                    android:layout_height="38dp"
+                    android:layout_weight="1"
                     app:srcCompat="@drawable/ic_eye_24dp"/>
 
                 <TextView
                     android:id="@+id/viewcount"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_weight="3"
-                    android:textSize="27sp"
+                    android:layout_weight="1"
+                    android:textSize="22sp"
                     android:textColor="#969696"/>
 
                 <ImageView
                     android:id="@+id/share"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="2"
-                    android:src="@drawable/share" />
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/share_3" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/share1"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:layout_weight="4" />-->
+                <!--<com.facebook.share.widget.ShareButton-->
+                    <!--android:id="@+id/share_btn"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="36dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:contentDescription="Share"-->
+                    <!--android:layout_centerHorizontal="true"/>-->
 
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Title"
-                android:textSize="20sp"
+                android:text="Potrait Art"
+                android:textSize="16sp"
                 android:textColor="#000000"
-                android:textStyle="bold"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="12dp"
                 android:layout_marginRight="10dp"/>
 
             <TextView
@@ -105,64 +117,73 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Title"
-                android:textSize="20sp"
-                android:textColor="#969696"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="12dp"
                 android:layout_marginRight="10dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Artist"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+            <ImageView
+                android:id="@+id/artist"
+                android:layout_width="0dp"
+                android:layout_height="37dp"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/paint" />
 
             <TextView
                 android:id="@+id/kalaungname"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="6"
                 android:text="Kalaung Name"
                 android:textSize="20sp"
                 android:textColor="#969696"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"/>
+        </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Price"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+            <ImageView
+                android:id="@+id/price1"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/price" />
 
             <TextView
                 android:id="@+id/price"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:text="Price"
-                android:textSize="27sp"
+                android:layout_weight="6"
+                android:textSize="21sp"
                 android:textColor="#000000"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"/>
+        </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Description"
-                android:textSize="20sp"
+                android:textSize="21sp"
                 android:textColor="#000000"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"/>
 
@@ -171,7 +192,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Description"
-                android:textSize="16sp"
+                android:textSize="19sp"
                 android:textColor="#969696"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="20dp"

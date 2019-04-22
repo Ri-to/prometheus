@@ -1,6 +1,10 @@
 package com.prometheus.gallery;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -23,14 +33,16 @@ import com.google.firebase.database.ValueEventListener;
 import com.prometheus.gallery.obj.LoveObj;
 import com.prometheus.gallery.obj.PostObj;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.IOException;
 import java.util.UUID;
 
 public class Detail extends AppCompatActivity {
 
     private static final String TAG = "Showing immersive";
     private ImageView logo;
-//    private ImageView cart;
+    //    private ImageView cart;
     private ImageView img;
     private ImageView love;
     private ImageView share;
@@ -47,11 +59,21 @@ public class Detail extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
 
+    private CallbackManager callbackManager;
+    private ShareDialog shareDialog;
+    private SharePhoto linkContent;
+    private Bitmap imagebitmap;
+
+    private Target target;
+
     @Override
-        protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
 //        setTheme(R.style.NoActionBar);
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.detail);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.detail);
+
+
+
 
         logo = findViewById(R.id.logo);
 //        cart = findViewById(R.id.cart);
@@ -65,14 +87,14 @@ public class Detail extends AppCompatActivity {
         lovecount = findViewById(R.id.lovecount);
         viewcount = findViewById(R.id.viewcount);
 
-        ((MyApplication)getApplication()).setGobacklogin("");
-        ((MyApplication)getApplication()).setPostidforgoback("");
+        ((MyApplication) getApplication()).setGobacklogin("");
+        ((MyApplication) getApplication()).setPostidforgoback("");
 
         postid = getIntent().getStringExtra("postid");
 //        Log.e("Detail User",((MyApplication)getApplication()).getUserobj().toString());
-        if(((MyApplication)getApplication()).getUserobj()!=null){
-            userid = ((MyApplication)getApplication()).getUserobj().getId();
-            CheckLovedb(postid,userid);
+        if (((MyApplication) getApplication()).getUserobj() != null) {
+            userid = ((MyApplication) getApplication()).getUserobj().getId();
+            CheckLovedb(postid, userid);
         }
 //        final String postid = "3df5422b-f5c8-429e-8ea0-78ff9ac8b610";
 //        final String userid = "1466b7d0-e5c2-46d2-82f7-881c45ff8543";
@@ -99,14 +121,39 @@ public class Detail extends AppCompatActivity {
 
                     imgurl = ds.child("photoPath").getValue() + "";
 
+                    target = new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            if(bitmap!=null){
+//                                Toast.makeText(Detail.this, "Have Image", Toast.LENGTH_SHORT).show();
+                                imagebitmap = bitmap;
+                                img.setImageBitmap(bitmap);
+                            }
+                            else{
+                                Toast.makeText(Detail.this, "No Image", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                        }
+
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                        }
+                    };
+
                     Picasso.get()
                             .load(imgurl)
                             .placeholder(R.drawable.ic_more_horiz_24dp)
                             .error(R.drawable.ic_image_24dp)
-                            .into(img);
+                            .into(target);
+
 
                     DatabaseReference userref = FirebaseDatabase.getInstance().getReference();
-                    Query userquery = userref.child("User").orderByChild("id").equalTo(ds.child("createdBy").getValue()+"");
+                    Query userquery = userref.child("User").orderByChild("id").equalTo(ds.child("createdBy").getValue() + "");
                     userquery.addListenerForSingleValueEvent(new ValueEventListener() {
 
                         @Override
@@ -115,11 +162,10 @@ public class Detail extends AppCompatActivity {
                                 Toast.makeText(Detail.this, "There is no user.", Toast.LENGTH_SHORT).show();
 //                    DismissDialog();
                                 return;
-                            }
-                            else{
+                            } else {
                                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                                    kalaungname.setText(ds.child("fname").getValue()+" "+ds.child("lname").getValue());
+                                    kalaungname.setText(ds.child("fname").getValue() + " " + ds.child("lname").getValue());
                                 }
                             }
                         }
@@ -131,7 +177,7 @@ public class Detail extends AppCompatActivity {
                     });
 
                     title.setText(ds.child("title").getValue() + "");
-                    double finalprice = Double.parseDouble(ds.child("price").getValue()+"") + (Double.parseDouble(ds.child("price").getValue()+"")*5)/100;
+                    double finalprice = Double.parseDouble(ds.child("price").getValue() + "") + (Double.parseDouble(ds.child("price").getValue() + "") * 5) / 100;
                     price.setText(finalprice + " MMKS");
                     description.setText(ds.child("description").getValue() + "");
                     lovecount.setText(ds.child("loveCount").getValue() + "");
@@ -140,7 +186,7 @@ public class Detail extends AppCompatActivity {
                     int viewCount = Integer.parseInt(ds.child("viewCount").getValue() + "") + 1;
                     postObj.setViewCount(viewCount);
 
-                    mDatabase.child(key+"").setValue(postObj);
+                    mDatabase.child(key + "").setValue(postObj);
                 }
 
             }
@@ -154,19 +200,51 @@ public class Detail extends AppCompatActivity {
         });
 
         img.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-                Intent i = new Intent(Detail.this,Full_Img_View.class);
-                i.putExtra("Imgurl",imgurl);
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Detail.this, Full_Img_View.class);
+                i.putExtra("Imgurl", imgurl);
                 startActivity(i);
-           }
-       });
+            }
+        });
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (((MyApplication) getApplication()).getUserobj() != null) {
+                    callbackManager = CallbackManager.Factory.create();
+                    shareDialog = new ShareDialog(Detail.this);
+
+                    if(imagebitmap!=null){
+                        SharePhoto photo = new SharePhoto.Builder()
+                                .setBitmap(imagebitmap)
+                                .build();
+
+
+                        if (ShareDialog.canShow(SharePhotoContent.class)) {
+                            SharePhotoContent content = new SharePhotoContent.Builder()
+                                    .addPhoto(photo)
+                                    .build();
+                            shareDialog.show(Detail.this, content);
+                        }
+                    }
+                } else {
+                    Toast.makeText(Detail.this, "Please Login First", Toast.LENGTH_SHORT).show();
+                    ((MyApplication) getApplication()).setGobacklogin("detail");
+                    ((MyApplication) getApplication()).setPostidforgoback(postid);
+                    Intent i = new Intent(Detail.this, Login.class);
+//                    i.putExtra("goback","back");
+                    startActivity(i);
+                }
+            }
+        });
 
         love.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(((MyApplication)getApplication()).getUserobj()!=null){
+                if (((MyApplication) getApplication()).getUserobj() != null) {
                     if (love.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.nolove).getConstantState()) {
                         love.setImageResource(R.drawable.love);
                         LoveObj loveobj = new LoveObj();
@@ -174,8 +252,8 @@ public class Detail extends AppCompatActivity {
                         loveobj.setPostid(postid);
                         loveobj.setUserid(userid);
 
-                        InsertUpdateDB(loveobj,false);
-                        lovecount.setText(Integer.toString(Integer.parseInt(lovecount.getText().toString())+1));
+                        InsertUpdateDB(loveobj, false);
+                        lovecount.setText(Integer.toString(Integer.parseInt(lovecount.getText().toString()) + 1));
 
                     } else if (love.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.love).getConstantState()) {
 //                    Picasso.get()
@@ -183,21 +261,26 @@ public class Detail extends AppCompatActivity {
 //                            .error(R.mipmap.ic_launcher)
 //                            .into(love);
                         love.setImageResource(R.drawable.nolove);
-                        DeleteDB(postid,userid);
-                        lovecount.setText(Integer.toString(Integer.parseInt(lovecount.getText().toString())-1));
+                        DeleteDB(postid, userid);
+                        lovecount.setText(Integer.toString(Integer.parseInt(lovecount.getText().toString()) - 1));
                     }
-                }
-                else{
+                } else {
                     Toast.makeText(Detail.this, "Please Login First", Toast.LENGTH_SHORT).show();
-                    ((MyApplication)getApplication()).setGobacklogin("detail");
-                    ((MyApplication)getApplication()).setPostidforgoback(postid);
-                    Intent i = new Intent(Detail.this,Login.class);
+                    ((MyApplication) getApplication()).setGobacklogin("detail");
+                    ((MyApplication) getApplication()).setPostidforgoback(postid);
+                    Intent i = new Intent(Detail.this, Login.class);
 //                    i.putExtra("goback","back");
                     startActivity(i);
                 }
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     public void fullScreen() {
@@ -290,9 +373,9 @@ public class Detail extends AppCompatActivity {
                                             key = Integer.parseInt(ds.getKey());
 
                                             PostObj postobj = ds.getValue(PostObj.class);
-                                            postobj.setLoveCount(postobj.getLoveCount()+1);
+                                            postobj.setLoveCount(postobj.getLoveCount() + 1);
 
-                                            databaseReference.child("Post").child(key+"").setValue(postobj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            databaseReference.child("Post").child(key + "").setValue(postobj).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     Log.e("DB_Commit", "Success!");
@@ -341,9 +424,9 @@ public class Detail extends AppCompatActivity {
                                         key = Integer.parseInt(ds.getKey());
 
                                         PostObj postobj = ds.getValue(PostObj.class);
-                                        postobj.setLoveCount(postobj.getLoveCount()+1);
+                                        postobj.setLoveCount(postobj.getLoveCount() + 1);
 
-                                        databaseReference.child("Post").child(key+"").setValue(postobj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        databaseReference.child("Post").child(key + "").setValue(postobj).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Log.e("DB_Commit", "Success!");
@@ -394,10 +477,10 @@ public class Detail extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     LoveObj lovelove = ds.getValue(LoveObj.class);
-                    Log.e("DB_Commit", "Success!"+ds.toString());
-                    Log.e("DB_Commit", "Success!"+ds.getKey());
+                    Log.e("DB_Commit", "Success!" + ds.toString());
+                    Log.e("DB_Commit", "Success!" + ds.getKey());
 
-                    if(userid.equals(lovelove.getUserid())){
+                    if (userid.equals(lovelove.getUserid())) {
                         ds.getRef().removeValue();
 
                         DatabaseReference postref = FirebaseDatabase.getInstance().getReference().child("Post");
@@ -412,10 +495,10 @@ public class Detail extends AppCompatActivity {
                                     key = Integer.parseInt(ds.getKey());
 
                                     PostObj postobj = ds.getValue(PostObj.class);
-                                    postobj.setLoveCount(postobj.getLoveCount()-1);
+                                    postobj.setLoveCount(postobj.getLoveCount() - 1);
 
                                     DatabaseReference dbref = FirebaseDatabase.getInstance().getReference();
-                                    dbref.child("Post").child(key+"").setValue(postobj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    dbref.child("Post").child(key + "").setValue(postobj).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Log.e("DB_Commit", "Success!");
@@ -459,12 +542,12 @@ public class Detail extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     LoveObj lovelove = ds.getValue(LoveObj.class);
-                    Log.e("DB_Commit", "Success!"+ds.toString());
-                    Log.e("DB_Commit", "Success!"+ds.getKey());
+                    Log.e("DB_Commit", "Success!" + ds.toString());
+                    Log.e("DB_Commit", "Success!" + ds.getKey());
 
-                    if(userid.equals(lovelove.getUserid())){
+                    if (userid.equals(lovelove.getUserid())) {
                         love.setImageResource(R.drawable.love);
-                        Log.e("setlove","Success");
+                        Log.e("setlove", "Success");
                     }
 
                 }
@@ -484,8 +567,8 @@ public class Detail extends AppCompatActivity {
         // Do nothing
 //        finish();
 
-        if(((MyApplication)getApplication()).getComefromhomedetail().equals("home")){
-            Intent i = new Intent(this,home.class);
+        if (((MyApplication) getApplication()).getComefromhomedetail().equals("home")) {
+            Intent i = new Intent(this, home.class);
             startActivity(i);
         }
 
