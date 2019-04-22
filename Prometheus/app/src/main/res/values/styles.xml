@@ -49,4 +49,7 @@
      <item name="colorPrimaryDark">@android:color/white</item>
     </style>
 
+    <string name="facebook_app_id">279708539580527</string>
+    <string name="fb_login_protocol_scheme">fb279708539580527</string>
+
 </resources>
